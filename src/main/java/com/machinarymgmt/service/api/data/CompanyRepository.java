@@ -1,4 +1,9 @@
 package com.machinarymgmt.service.api.data;
 
-public class CompanyRepository {
+import com.machinarymgmt.service.api.data.model.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 }

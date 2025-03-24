@@ -1,0 +1,49 @@
+openapi: 3.0.3
+info:
+  title: Machinary Mgmt Api - OpenAPI 3.0
+  description: |-
+    Machinary Mgmt Api
+  version: 0.0.1
+  contact:
+    name: API Support
+    email: mitakshar@altdigital.tech
+servers:
+  - url: api
+tags:
+  - name: machinary mgmt v1
+    description: Machinary Mgmt Api endpoints version 1
+paths:
+  #**************************************User MGMT******************************************************
+  /v1/auth/signup:
+    post:
+      tags:
+        - user mgmt v1
+      summary: Sign-Up/Register
+      description: Sign up/Register New User
+      operationId: signUp
+      requestBody:
+        description: Sign Up Request
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/SignUpRequest'
+        required: true
+      responses:
+        '201':
+          description: "Sign Up Success"
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/AuthResponse'
+        '422':
+          description: "Signup Request is valid but the service was not able to process it ..."
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+        '400':
+          description: "Validations failed for request arguments ..."
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'

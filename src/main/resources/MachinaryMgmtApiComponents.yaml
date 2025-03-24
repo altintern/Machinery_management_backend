@@ -1,0 +1,59 @@
+components:
+  schemas:
+    # ************************ Common Api Responses ******************
+    BaseApiResponse:
+      type: object
+      discriminator:
+        propertyName: respType
+
+    MachinaryMgmtBaseApiResponse:
+      type: object
+      properties:
+      allOf:
+        - $ref: '#/components/schemas/BaseApiResponse'
+
+    # ************************ User Api Responses ******************
+
+    AuthResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          $ref: '#/components/schemas/AuthResponseDto'
+      allOf:
+        - $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+
+    # ********************** User Api Requests ********************
+
+    SignUpRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        firstName:
+          type: string
+          description: First name of the user.
+        lastName:
+          type: string
+          description: Last name of the user.
+        password:
+          type: string
+          description: User's password.
+        email:
+          type: string
+          format: email
+          description: User's email address.
+
+    # *************** User Service DTO's **************
+    AuthResponseDto:
+      type: object
+      required:
+        -jwt
+        -message
+      properties:
+        jwt:
+          type: string
+
