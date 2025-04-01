@@ -18,15 +18,15 @@ public class CompanyProjectEquipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AssignmentID")
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "CompanyID", nullable = false)
     private Company company;
-    
+
     @ManyToOne
     @JoinColumn(name = "ProjectID", nullable = false)
     private Project project;
-    
+
     @ManyToOne
     @JoinColumn(name = "EquipmentID", nullable = false)
     private Equipment equipment;

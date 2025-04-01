@@ -1,0 +1,52 @@
+package com.machinarymgmt.service.api.mapper;
+
+import com.machinarymgmt.service.api.data.model.Equipment;
+import com.machinarymgmt.service.api.data.model.Item;
+import com.machinarymgmt.service.api.data.model.PettyCashTransaction;
+import com.machinarymgmt.service.api.data.model.Project;
+import com.machinarymgmt.service.api.dto.PettyCashTransactionDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
+
+@Mapper(
+    componentModel = "spring",
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    uses = {ProjectMapper.class, EquipmentMapper.class, ItemMapper.class}
+)
+public interface PettyCashTransactionMapper extends MachinaryMgmtMapper {
+    
+    @Mapping(source = "project.id", target = "projectId")
+    @Mapping(source = "equipment.id", target = "equipmentId")
+    @Mapping(source = "item.id", target = "itemId")
+    PettyCashTransactionDto toDto(PettyCashTransaction transaction);
+    
+    List<PettyCashTransactionDto> toDtoList(List<PettyCashTransaction> transactions);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "project", ignore = true)
+    @Mapping(target = "equipment", ignore = true)
+    @Mapping(target = "item", ignore = true)
+    PettyCashTransaction toEntity(PettyCashTransactionDto dto);
+    
+    @Mapping(target = "project", ignore = true)
+    @Mapping(target = "equipment", ignore = true)
+    @Mapping(target = "item", ignore = true)
+    void updateEntityFromDto(PettyCashTransactionDto dto, @MappingTarget PettyCashTransaction transaction);
+    
+    default PettyCashTransaction fromDtoWithReferences(
+            PettyCashTransactionDto dto,
+            Project project,
+            Equipment equipment,
+            Item item) {
+        PettyCashTransaction transaction = toEntity(dto);
+        transaction.setProject(project);
+        transaction.setEquipment(equipment);
+        transaction.setItem(item);
+        return transaction;
+    }
+}
+

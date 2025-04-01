@@ -1,49 +1,17 @@
 package com.machinarymgmt.service.api.config.dto;
 
-public class Status {
+import lombok.Getter;
 
-  private int statusCode;
+@Getter
+public enum Status {
+    SUCCESS("Success"),
+    ERROR("Error"),
+    WARNING("Warning");
 
-  private String statusMessage;
+    private final String value;
 
-  private String statusMessageKey;
-
-  public int getStatusCode() {
-    return statusCode;
-  }
-
-  public void setStatusCode(int statusCode) {
-    this.statusCode = statusCode;
-  }
-
-  public String getStatusMessage() {
-    return statusMessage;
-  }
-
-  public void setStatusMessage(String statusMessage) {
-    this.statusMessage = statusMessage;
-  }
-
-  public String getStatusMessageKey() {
-    return statusMessageKey;
-  }
-
-  public void setStatusMessageKey(String statusMessageKey) {
-    this.statusMessageKey = statusMessageKey;
-  }
-
-  public Status statusCode(int value) {
-    this.statusCode = value;
-    return this;
-  }
-
-  public Status statusMessage(String statusMessage) {
-    this.statusMessage = statusMessage;
-    return this;
-  }
-
-  public Status statusMessageKey(String statusMessageKey) {
-    this.statusMessageKey = statusMessageKey;
-    return this;
-  }
+    Status(String value) {
+        this.value = value;
+    }
 }
+

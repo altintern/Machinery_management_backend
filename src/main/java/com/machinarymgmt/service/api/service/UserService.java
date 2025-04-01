@@ -1,10 +1,10 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.User;
-import com.machinarymgmt.service.dto.SignUpRequest;
+
+import java.util.Optional;
 
 public interface UserService {
-
-    User signUp(SignUpRequest signUpRequest);
-
+    Optional<User> findByUsername(String username);
 }
+

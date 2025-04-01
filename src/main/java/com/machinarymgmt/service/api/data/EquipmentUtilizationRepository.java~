@@ -1,7 +1,0 @@
-package com.machinarymgmt.service.api.data;
-
-import com.machinarymgmt.service.api.data.model.EquipmentUtilization;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface EquipmentUtilizationRepository extends JpaRepository<EquipmentUtilization, Long> {
-}

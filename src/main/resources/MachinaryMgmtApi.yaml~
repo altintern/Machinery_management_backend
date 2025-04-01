@@ -1,0 +1,1673 @@
+openapi: 3.0.3
+info:
+  title: Machinery Management API
+  description: API for managing machinery, equipment, and maintenance
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080/api/v1'
+    description: Local development server
+
+
+paths:
+  /equipment:
+    get:
+      summary: Get all equipment
+      operationId: getAllEquipment
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentListResponse'
+    post:
+      summary: Create new equipment
+      operationId: createEquipment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentRequest'
+      responses:
+        '200':
+          description: Equipment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentResponse'
+  /equipment/{id}:
+    get:
+      summary: Get equipment by ID
+      operationId: getEquipmentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentResponse'
+    put:
+      summary: Update equipment
+      operationId: updateEquipment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EquipmentRequest'
+      responses:
+        '200':
+          description: Equipment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EquipmentResponse'
+    delete:
+      summary: Delete equipment
+      operationId: deleteEquipment
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Equipment deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /maintenance:
+    get:
+      summary: Get all maintenance logs
+      operationId: getAllMaintenanceLogs
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceLogListResponse'
+    post:
+      summary: Create new maintenance log
+      operationId: createMaintenanceLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceLogRequest'
+      responses:
+        '200':
+          description: Maintenance log created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceLogResponse'
+  /maintenance/{id}:
+    get:
+      summary: Get maintenance log by ID
+      operationId: getMaintenanceLogById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceLogResponse'
+    put:
+      summary: Update maintenance log
+      operationId: updateMaintenanceLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MaintenanceLogRequest'
+      responses:
+        '200':
+          description: Maintenance log updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MaintenanceLogResponse'
+    delete:
+      summary: Delete maintenance log
+      operationId: deleteMaintenanceLog
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Maintenance log deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /projects:
+    get:
+      summary: Get all projects
+      operationId: getAllProjects
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+    post:
+      summary: Create new project
+      operationId: createProject
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+      responses:
+        '200':
+          description: Project created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+  /projects/{id}:
+    get:
+      summary: Get project by ID
+      operationId: getProjectById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+    put:
+      summary: Update project
+      operationId: updateProject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectRequest'
+      responses:
+        '200':
+          description: Project updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+    delete:
+      summary: Delete project
+      operationId: deleteProject
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Project deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /categories:
+    get:
+      summary: Get all equipment categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryListResponse'
+    post:
+      summary: Create new equipment category
+      operationId: createCategory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+      responses:
+        '200':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+  /categories/{id}:
+    get:
+      summary: Get equipment category by ID
+      operationId: getCategoryById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+    put:
+      summary: Update equipment category
+      operationId: updateCategory
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CategoryRequest'
+      responses:
+        '200':
+          description: Category updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResponse'
+    delete:
+      summary: Delete equipment category
+      operationId: deleteCategory
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Category deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /makes:
+    get:
+      summary: Get all makes
+      operationId: getAllMakes
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakeListResponse'
+    post:
+      summary: Create new make
+      operationId: createMake
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MakeRequest'
+      responses:
+        '200':
+          description: Make created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakeResponse'
+  /makes/{id}:
+    get:
+      summary: Get make by ID
+      operationId: getMakeById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakeResponse'
+    put:
+      summary: Update make
+      operationId: updateMake
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MakeRequest'
+      responses:
+        '200':
+          description: Make updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakeResponse'
+    delete:
+      summary: Delete make
+      operationId: deleteMake
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Make deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /models:
+    get:
+      summary: Get all models
+      operationId: getAllModels
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelListResponse'
+    post:
+      summary: Create new model
+      operationId: createModel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelRequest'
+      responses:
+        '200':
+          description: Model created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelResponse'
+  /models/{id}:
+    get:
+      summary: Get model by ID
+      operationId: getModelById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelResponse'
+    put:
+      summary: Update model
+      operationId: updateModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelRequest'
+      responses:
+        '200':
+          description: Model updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelResponse'
+    delete:
+      summary: Delete model
+      operationId: deleteModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Model deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /models/make/{makeId}:
+    get:
+      summary: Get models by make ID
+      operationId: getModelsByMakeId
+      parameters:
+        - name: makeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelListResponse'
+  /items:
+    get:
+      summary: Get all items
+      operationId: getAllItems
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListResponse'
+    post:
+      summary: Create new item
+      operationId: createItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRequest'
+      responses:
+        '200':
+          description: Item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+  /items/{id}:
+    get:
+      summary: Get item by ID
+      operationId: getItemById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+    put:
+      summary: Update item
+      operationId: updateItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRequest'
+      responses:
+        '200':
+          description: Item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResponse'
+    delete:
+      summary: Delete item
+      operationId: deleteItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Item deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /incidents:
+    get:
+      summary: Get all incident reports
+      operationId: getAllIncidents
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentReportListResponse'
+    post:
+      summary: Create new incident report
+      operationId: createIncident
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentReportRequest'
+      responses:
+        '200':
+          description: Incident report created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentReportResponse'
+  /incidents/{id}:
+    get:
+      summary: Get incident report by ID
+      operationId: getIncidentById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentReportResponse'
+    put:
+      summary: Update incident report
+      operationId: updateIncident
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentReportRequest'
+      responses:
+        '200':
+          description: Incident report updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentReportResponse'
+    delete:
+      summary: Delete incident report
+      operationId: deleteIncident
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Incident report deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+  /incidents/types:
+    get:
+      summary: Get all incident types
+      operationId: getAllIncidentTypes
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentTypeListResponse'
+    post:
+      summary: Create new incident type
+      operationId: createIncidentType
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IncidentTypeRequest'
+      responses:
+        '200':
+          description: Incident type created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncidentTypeResponse'
+  /incidents/statuses:
+    get:
+      summary: Get all statuses
+      operationId: getAllStatuses
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusListResponse'
+    post:
+      summary: Create new status
+      operationId: createStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StatusRequest'
+      responses:
+        '200':
+          description: Status created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+  /employees:
+    get:
+      summary: Get all employees
+      operationId: getAllEmployees
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeListResponse'
+    post:
+      summary: Create new employee
+      operationId: createEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeRequest'
+      responses:
+        '200':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+  /departments:
+    get:
+      summary: Get all departments
+      operationId: getAllDepartments
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentListResponse'
+    post:
+      summary: Create new department
+      operationId: createDepartment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepartmentRequest'
+      responses:
+        '200':
+          description: Department created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+  /designations:
+    get:
+      summary: Get all designations
+      operationId: getAllDesignations
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DesignationListResponse'
+    post:
+      summary: Create new designation
+      operationId: createDesignation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DesignationRequest'
+      responses:
+        '200':
+          description: Designation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DesignationResponse'
+components:
+  schemas:
+    BaseResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [SUCCESS, ERROR, WARNING]
+        messages:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiMessage'
+        timestamp:
+          type: string
+          format: date-time
+
+    ApiMessage:
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+          enum: [INFO, ERROR, WARNING]
+        errorType:
+          type: string
+          enum: [VALIDATION_ERROR, SYSTEM_ERROR, NOT_FOUND, DUPLICATE, UNAUTHORIZED]
+
+    Metadata:
+      type: object
+      properties:
+        page:
+          type: integer
+        size:
+          type: integer
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+        hasNext:
+          type: boolean
+        hasPrevious:
+          type: boolean
+
+    EquipmentRequest:
+      type: object
+      properties:
+        projectId:
+          type: integer
+          format: int64
+        equipmentName:
+          type: string
+        categoryId:
+          type: integer
+          format: int64
+        modelId:
+          type: integer
+          format: int64
+        assetCode:
+          type: string
+        yearOfManufacture:
+          type: integer
+
+    EquipmentResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Equipment'
+
+    EquipmentListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Equipment'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    Equipment:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        equipmentName:
+          type: string
+        categoryId:
+          type: integer
+          format: int64
+        modelId:
+          type: integer
+          format: int64
+        assetCode:
+          type: string
+        yearOfManufacture:
+          type: integer
+        project:
+          $ref: '#/components/schemas/Project'
+        category:
+          $ref: '#/components/schemas/EquipmentCategory'
+        model:
+          $ref: '#/components/schemas/Model'
+
+    ProjectRequest:
+      type: object
+      properties:
+        projectName:
+          type: string
+        projectLocation:
+          type: string
+
+    ProjectResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Project'
+
+    ProjectListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Project'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    Project:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        projectName:
+          type: string
+        projectLocation:
+          type: string
+
+    CategoryRequest:
+      type: object
+      properties:
+        categoryName:
+          type: string
+
+    CategoryResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/EquipmentCategory'
+
+    CategoryListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/EquipmentCategory'
+
+    EquipmentCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        categoryName:
+          type: string
+
+    MakeRequest:
+      type: object
+      properties:
+        makeName:
+          type: string
+
+    MakeResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Make'
+
+    MakeListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Make'
+
+    Make:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        makeName:
+          type: string
+
+    ModelRequest:
+      type: object
+      properties:
+        makeId:
+          type: integer
+          format: int64
+        modelName:
+          type: string
+
+    ModelResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Model'
+
+    ModelListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Model'
+
+    Model:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        makeId:
+          type: integer
+          format: int64
+        modelName:
+          type: string
+        make:
+          $ref: '#/components/schemas/Make'
+
+    ItemRequest:
+      type: object
+      properties:
+        itemCode:
+          type: string
+        itemDescription:
+          type: string
+        uom:
+          type: string
+        itemType:
+          type: string
+          enum: [Material, Spare, Other]
+
+    ItemResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Item'
+
+    ItemListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Item'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    Item:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        itemCode:
+          type: string
+        itemDescription:
+          type: string
+        uom:
+          type: string
+        itemType:
+          type: string
+          enum: [Material, Spare, Other]
+
+    MaintenanceLogRequest:
+      type: object
+      properties:
+        equipmentId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        startReading:
+          type: integer
+        closeReading:
+          type: integer
+        serviceHours:
+          type: integer
+        serviceDate:
+          type: string
+          format: date
+        balanceForService:
+          type: integer
+        purposeActivities:
+          type: string
+        typeOfMaintenance:
+          type: string
+        breakdownSynopsis:
+          type: string
+        operatorName:
+          type: string
+        operatorSignature:
+          type: string
+        maintenanceSignature:
+          type: string
+        feedback:
+          type: string
+        remarks:
+          type: string
+        partsUsed:
+          type: array
+          items:
+            $ref: '#/components/schemas/MaintenancePartUsedRequest'
+        readings:
+          $ref: '#/components/schemas/MaintenanceReadingRequest'
+
+    MaintenanceLogResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MaintenanceLog'
+
+    MaintenanceLogListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/MaintenanceLog'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    MaintenanceLog:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        equipmentId:
+          type: integer
+          format: int64
+        date:
+          type: string
+          format: date
+        startReading:
+          type: integer
+        closeReading:
+          type: integer
+        serviceHours:
+          type: integer
+        serviceDate:
+          type: string
+          format: date
+        balanceForService:
+          type: integer
+        purposeActivities:
+          type: string
+        typeOfMaintenance:
+          type: string
+        breakdownSynopsis:
+          type: string
+        operatorName:
+          type: string
+        operatorSignature:
+          type: string
+        maintenanceSignature:
+          type: string
+        feedback:
+          type: string
+        remarks:
+          type: string
+        equipment:
+          $ref: '#/components/schemas/Equipment'
+        partsUsed:
+          type: array
+          items:
+            $ref: '#/components/schemas/MaintenancePartUsed'
+        readings:
+          $ref: '#/components/schemas/MaintenanceReading'
+
+    MaintenancePartUsedRequest:
+      type: object
+      properties:
+        itemId:
+          type: integer
+          format: int64
+        quantity:
+          type: number
+          format: double
+
+    MaintenancePartUsed:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        itemId:
+          type: integer
+          format: int64
+        quantity:
+          type: number
+          format: double
+        item:
+          $ref: '#/components/schemas/Item'
+
+    MaintenanceReadingRequest:
+      type: object
+      properties:
+        oilPressure:
+          type: number
+          format: double
+        engineTemperature:
+          type: number
+          format: double
+        airPressure:
+          type: number
+          format: double
+        hydraulicTemperature:
+          type: number
+          format: double
+        hsdUsed:
+          type: number
+          format: double
+        engineOil:
+          type: number
+          format: double
+        hydraulicOil:
+          type: number
+          format: double
+        gearOil:
+          type: number
+          format: double
+        greaseUsed:
+          type: number
+          format: double
+
+    MaintenanceReading:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        oilPressure:
+          type: number
+          format: double
+        engineTemperature:
+          type: number
+          format: double
+        airPressure:
+          type: number
+          format: double
+        hydraulicTemperature:
+          type: number
+          format: double
+        hsdUsed:
+          type: number
+          format: double
+        engineOil:
+          type: number
+          format: double
+        hydraulicOil:
+          type: number
+          format: double
+        gearOil:
+          type: number
+          format: double
+        greaseUsed:
+          type: number
+          format: double
+
+    IncidentReportRequest:
+      type: object
+      properties:
+        equipmentId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        typeId:
+          type: integer
+          format: int64
+        incidentDetails:
+          type: string
+        incidentDate:
+          type: string
+          format: date
+        actionTaken:
+          type: string
+        estimatedCompletionDate:
+          type: string
+          format: date
+        closedDate:
+          type: string
+          format: date
+        statusId:
+          type: integer
+          format: int64
+
+    IncidentReportResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/IncidentReport'
+
+    IncidentReportListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/IncidentReport'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    IncidentReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        equipmentId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        typeId:
+          type: integer
+          format: int64
+        incidentDetails:
+          type: string
+        incidentDate:
+          type: string
+          format: date
+        actionTaken:
+          type: string
+        estimatedCompletionDate:
+          type: string
+          format: date
+        closedDate:
+          type: string
+          format: date
+        statusId:
+          type: integer
+          format: int64
+        equipment:
+          $ref: '#/components/schemas/Equipment'
+        project:
+          $ref: '#/components/schemas/Project'
+        type:
+          $ref: '#/components/schemas/IncidentType'
+        status:
+          $ref: '#/components/schemas/Status'
+
+    IncidentTypeRequest:
+      type: object
+      properties:
+        typeName:
+          type: string
+
+    IncidentTypeResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/IncidentType'
+
+    IncidentTypeListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/IncidentType'
+
+    IncidentType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        typeName:
+          type: string
+
+    StatusRequest:
+      type: object
+      properties:
+        statusName:
+          type: string
+
+    StatusResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Status'
+
+    StatusListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Status'
+
+    Status:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        statusName:
+          type: string
+
+    EmployeeRequest:
+      type: object
+      properties:
+        employeeName:
+          type: string
+        designationId:
+          type: integer
+          format: int64
+        deptId:
+          type: integer
+          format: int64
+        remarks:
+          type: string
+
+    EmployeeResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Employee'
+
+    EmployeeListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Employee'
+            metadata:
+              $ref: '#/components/schemas/Metadata'
+
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        employeeName:
+          type: string
+        designationId:
+          type: integer
+          format: int64
+        deptId:
+          type: integer
+          format: int64
+        remarks:
+          type: string
+        designation:
+          $ref: '#/components/schemas/Designation'
+        department:
+          $ref: '#/components/schemas/Department'
+
+    DepartmentRequest:
+      type: object
+      properties:
+        deptName:
+          type: string
+
+    DepartmentResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Department'
+
+    DepartmentListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Department'
+
+    Department:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        deptName:
+          type: string
+
+    DesignationRequest:
+      type: object
+      properties:
+        designationName:
+          type: string
+
+    DesignationResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/Designation'
+
+    DesignationListResponse:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Designation'
+
+    Designation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        designationName:
+          type: string
+

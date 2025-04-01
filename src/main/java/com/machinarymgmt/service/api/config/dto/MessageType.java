@@ -1,16 +1,17 @@
 package com.machinarymgmt.service.api.config.dto;
 
+import lombok.Getter;
+
+@Getter
 public enum MessageType {
-  ERROR("ERROR"), WARNING("WARNING"), INFO("INFO");
+    INFO("Info"),
+    ERROR("Error"),
+    WARNING("Warning");
 
-  private String value;
+    private final String value;
 
-  MessageType(String value) {
-    this.value = value;
-  }
-
-  public String getValue() {
-    return value;
-  }
-
+    MessageType(String value) {
+        this.value = value;
+    }
 }
+

@@ -1,0 +1,53 @@
+package com.machinarymgmt.service.api.mapper;
+
+import com.machinarymgmt.service.api.data.model.Item;
+import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
+import com.machinarymgmt.service.api.data.model.MaintenancePartsUsed;
+import com.machinarymgmt.service.api.dto.MaintenancePartUsedDto;
+import com.machinarymgmt.service.api.dto.MaintenancePartUsedRequestDto;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Mapper(
+    componentModel = "spring",
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    uses = {ItemMapper.class}
+)
+public interface MaintenancePartUsedMapper extends MachinaryMgmtMapper {
+    
+    @Mapping(source = "item.id", target = "itemId")
+    @Mapping(source = "quantity", target = "quantity")
+    MaintenancePartUsedDto toDto(MaintenancePartsUsed partsUsed);
+    
+    List<MaintenancePartUsedDto> toDtoList(List<MaintenancePartsUsed> partsUsed);
+    
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "maintenanceLog", ignore = true)
+    @Mapping(target = "item", ignore = true)
+    @Mapping(source = "quantity", target = "quantity")
+    MaintenancePartsUsed toEntity(MaintenancePartUsedRequestDto dto);
+    
+    default MaintenancePartsUsed fromDtoWithReferences(
+            MaintenancePartUsedRequestDto dto,
+            MachineryMaintenanceLog log,
+            Item item) {
+        MaintenancePartsUsed partsUsed = toEntity(dto);
+        partsUsed.setMaintenanceLog(log);
+        partsUsed.setItem(item);
+        partsUsed.setQuantity(BigDecimal.valueOf(dto.getQuantity()));
+        return partsUsed;
+    }
+    
+    default Double mapBigDecimalToDouble(BigDecimal value) {
+        return value != null ? value.doubleValue() : null;
+    }
+    
+    default BigDecimal mapDoubleToDecimal(Double value) {
+        return value != null ? BigDecimal.valueOf(value) : null;
+    }
+}
+

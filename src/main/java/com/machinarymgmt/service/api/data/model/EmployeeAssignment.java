@@ -19,19 +19,19 @@ public class EmployeeAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AssignmentID")
     private Long id;
-    
+
     @ManyToOne
     @JoinColumn(name = "EmployeeID", nullable = false)
     private Employee employee;
-    
+
     @ManyToOne
     @JoinColumn(name = "ProjectID", nullable = false)
     private Project project;
-    
+
     @ManyToOne
     @JoinColumn(name = "EquipmentID", nullable = false)
     private Equipment equipment;
-    
+
     @Column(name = "Joining_Date")
     private LocalDate joiningDate;
 }

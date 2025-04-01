@@ -1,15 +1,17 @@
 package com.machinarymgmt.service.api.mapper;
 
-import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
-import com.machinarymgmt.service.api.data.model.User;
-import com.machinarymgmt.service.dto.AuthResponse;
-import com.machinarymgmt.service.dto.SignUpRequest;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+/**
+ * Base mapper interface for the Machinery Management application.
+ * This will be extended by specific entity mappers.
+ */
+@Mapper(
+    componentModel = "spring",
+    unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
 public interface MachinaryMgmtMapper {
-
-    User toUserEntity(SignUpRequest signUpRequest);
-
-    AuthResponse toAuthResponse(BaseApiResponse baseApiResponse);
+    // Base mapper methods will be added here
 }
+
