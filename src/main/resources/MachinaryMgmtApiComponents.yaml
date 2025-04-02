@@ -716,6 +716,7 @@ components:
         department:
           $ref: '#/components/schemas/Department'
 
+
     DepartmentRequest:
       type: object
       properties:
