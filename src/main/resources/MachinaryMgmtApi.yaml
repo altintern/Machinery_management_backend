@@ -6,12 +6,49 @@ info:
 servers:
   - url: 'http://localhost:8080/api/v1'
     description: Local development server
+    
+tags:
+  - name: Equipments
+    description: Endpoints for managing machinery and equipment inventory.
+
+  - name: Maintenance
+    description: Endpoints for tracking maintenance, servicing, and repairs.
+
+  - name: Projects
+    description: Endpoints for managing construction projects and related machinery.
+
+  - name: Categories
+    description: Endpoints for categorizing equipment based on type and function.
+
+  - name: Makes
+    description: Endpoints for managing equipment manufacturers and brands.
+
+  - name: Models
+    description: Endpoints for handling different models of machinery and equipment.
+
+  - name: Items
+    description: Endpoints for managing individual equipment items and parts.
+
+  - name: Incidents
+    description: Endpoints for logging and managing equipment breakdowns and incidents.
+
+  - name: Employees
+    description: Endpoints for managing employees associated with equipment handling.
+
+  - name: Departments
+    description: Endpoints for managing company departments linked to machinery use.
+
+  - name: Designations
+    description: Endpoints for managing job roles and designations related to equipment operations.
+
 
 paths:
   /equipment:
     get:
       summary: Get all equipment
       operationId: getAllEquipment
+      tags:
+        - Equipments
       parameters:
         - name: page
           in: query
@@ -33,6 +70,8 @@ paths:
     post:
       summary: Create new equipment
       operationId: createEquipment
+      tags:
+        - Equipments
       requestBody:
         content:
           application/json:
@@ -49,6 +88,8 @@ paths:
     get:
       summary: Get equipment by ID
       operationId: getEquipmentById
+      tags:
+        - Equipments
       parameters:
         - name: id
           in: path
@@ -66,6 +107,8 @@ paths:
     put:
       summary: Update equipment
       operationId: updateEquipment
+      tags:
+        - Equipments
       parameters:
         - name: id
           in: path
@@ -88,6 +131,8 @@ paths:
     delete:
       summary: Delete equipment
       operationId: deleteEquipment
+      tags:
+        - Equipments
       parameters:
         - name: id
           in: path
@@ -102,10 +147,13 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                
   /maintenance:
     get:
       summary: Get all maintenance logs
       operationId: getAllMaintenanceLogs
+      tags:
+        - Maintenance
       parameters:
         - name: page
           in: query
@@ -127,6 +175,8 @@ paths:
     post:
       summary: Create new maintenance log
       operationId: createMaintenanceLog
+      tags:
+        - Maintenance
       requestBody:
         content:
           application/json:
@@ -143,6 +193,8 @@ paths:
     get:
       summary: Get maintenance log by ID
       operationId: getMaintenanceLogById
+      tags:
+        - Maintenance
       parameters:
         - name: id
           in: path
@@ -160,6 +212,8 @@ paths:
     put:
       summary: Update maintenance log
       operationId: updateMaintenanceLog
+      tags:
+        - Maintenance
       parameters:
         - name: id
           in: path
@@ -182,6 +236,8 @@ paths:
     delete:
       summary: Delete maintenance log
       operationId: deleteMaintenanceLog
+      tags:
+        - Maintenance
       parameters:
         - name: id
           in: path
@@ -200,6 +256,8 @@ paths:
     get:
       summary: Get all projects
       operationId: getAllProjects
+      tags:
+        - Projects
       parameters:
         - name: page
           in: query
@@ -221,6 +279,8 @@ paths:
     post:
       summary: Create new project
       operationId: createProject
+      tags:
+        - Projects
       requestBody:
         content:
           application/json:
@@ -237,6 +297,8 @@ paths:
     get:
       summary: Get project by ID
       operationId: getProjectById
+      tags:
+        - Projects
       parameters:
         - name: id
           in: path
@@ -254,6 +316,8 @@ paths:
     put:
       summary: Update project
       operationId: updateProject
+      tags:
+        - Projects
       parameters:
         - name: id
           in: path
@@ -276,6 +340,8 @@ paths:
     delete:
       summary: Delete project
       operationId: deleteProject
+      tags:
+        - Projects
       parameters:
         - name: id
           in: path
@@ -294,6 +360,8 @@ paths:
     get:
       summary: Get all equipment categories
       operationId: getAllCategories
+      tags:
+        - Categories
       responses:
         '200':
           description: Successful operation
@@ -304,6 +372,8 @@ paths:
     post:
       summary: Create new equipment category
       operationId: createCategory
+      tags:
+        - Categories
       requestBody:
         content:
           application/json:
@@ -320,6 +390,8 @@ paths:
     get:
       summary: Get equipment category by ID
       operationId: getCategoryById
+      tags:
+        - Categories
       parameters:
         - name: id
           in: path
@@ -337,6 +409,8 @@ paths:
     put:
       summary: Update equipment category
       operationId: updateCategory
+      tags:
+        - Categories
       parameters:
         - name: id
           in: path
@@ -359,6 +433,8 @@ paths:
     delete:
       summary: Delete equipment category
       operationId: deleteCategory
+      tags:
+        - Categories
       parameters:
         - name: id
           in: path
@@ -377,6 +453,8 @@ paths:
     get:
       summary: Get all makes
       operationId: getAllMakes
+      tags:
+        - Makes
       responses:
         '200':
           description: Successful operation
@@ -387,6 +465,8 @@ paths:
     post:
       summary: Create new make
       operationId: createMake
+      tags:
+        - Makes
       requestBody:
         content:
           application/json:
@@ -403,6 +483,8 @@ paths:
     get:
       summary: Get make by ID
       operationId: getMakeById
+      tags:
+        - Makes
       parameters:
         - name: id
           in: path
@@ -420,6 +502,8 @@ paths:
     put:
       summary: Update make
       operationId: updateMake
+      tags:
+        - Makes
       parameters:
         - name: id
           in: path
@@ -442,6 +526,8 @@ paths:
     delete:
       summary: Delete make
       operationId: deleteMake
+      tags:
+        - Makes
       parameters:
         - name: id
           in: path
@@ -460,6 +546,8 @@ paths:
     get:
       summary: Get all models
       operationId: getAllModels
+      tags:
+        - Models
       responses:
         '200':
           description: Successful operation
@@ -470,6 +558,8 @@ paths:
     post:
       summary: Create new model
       operationId: createModel
+      tags:
+        - Models
       requestBody:
         content:
           application/json:
@@ -486,6 +576,8 @@ paths:
     get:
       summary: Get model by ID
       operationId: getModelById
+      tags:
+        - Models
       parameters:
         - name: id
           in: path
@@ -503,6 +595,8 @@ paths:
     put:
       summary: Update model
       operationId: updateModel
+      tags:
+        - Models
       parameters:
         - name: id
           in: path
@@ -525,6 +619,8 @@ paths:
     delete:
       summary: Delete model
       operationId: deleteModel
+      tags:
+        - Models
       parameters:
         - name: id
           in: path
@@ -543,6 +639,8 @@ paths:
     get:
       summary: Get models by make ID
       operationId: getModelsByMakeId
+      tags:
+        - Models
       parameters:
         - name: makeId
           in: path
@@ -561,6 +659,8 @@ paths:
     get:
       summary: Get all items
       operationId: getAllItems
+      tags:
+        - Items
       parameters:
         - name: page
           in: query
@@ -582,6 +682,8 @@ paths:
     post:
       summary: Create new item
       operationId: createItem
+      tags:
+        - Items
       requestBody:
         content:
           application/json:
@@ -598,6 +700,8 @@ paths:
     get:
       summary: Get item by ID
       operationId: getItemById
+      tags:
+        - Items
       parameters:
         - name: id
           in: path
@@ -615,6 +719,8 @@ paths:
     put:
       summary: Update item
       operationId: updateItem
+      tags:
+        - Items
       parameters:
         - name: id
           in: path
@@ -637,6 +743,8 @@ paths:
     delete:
       summary: Delete item
       operationId: deleteItem
+      tags:
+        - Items
       parameters:
         - name: id
           in: path
@@ -655,6 +763,8 @@ paths:
     get:
       summary: Get all incident reports
       operationId: getAllIncidents
+      tags:
+        - Incidents
       parameters:
         - name: page
           in: query
@@ -676,6 +786,8 @@ paths:
     post:
       summary: Create new incident report
       operationId: createIncident
+      tags:
+        - Incidents
       requestBody:
         content:
           application/json:
@@ -692,6 +804,8 @@ paths:
     get:
       summary: Get incident report by ID
       operationId: getIncidentById
+      tags:
+        - Incidents
       parameters:
         - name: id
           in: path
@@ -709,6 +823,8 @@ paths:
     put:
       summary: Update incident report
       operationId: updateIncident
+      tags:
+        - Incidents
       parameters:
         - name: id
           in: path
@@ -731,6 +847,8 @@ paths:
     delete:
       summary: Delete incident report
       operationId: deleteIncident
+      tags:
+        - Incidents
       parameters:
         - name: id
           in: path
@@ -749,6 +867,8 @@ paths:
     get:
       summary: Get all incident types
       operationId: getAllIncidentTypes
+      tags:
+        - Incidents
       responses:
         '200':
           description: Successful operation
@@ -759,6 +879,8 @@ paths:
     post:
       summary: Create new incident type
       operationId: createIncidentType
+      tags:
+        - Incidents
       requestBody:
         content:
           application/json:
@@ -771,10 +893,12 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeResponse'
-  /incidents/statuses:
+  /incident/statuses:
     get:
-      summary: Get all statuses
-      operationId: getAllStatuses
+      summary: Get all Incident statuses
+      operationId: getAllIncidentStatuses
+      tags:
+        - Incidents
       responses:
         '200':
           description: Successful operation
@@ -783,8 +907,10 @@ paths:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusListResponse'
     post:
-      summary: Create new status
-      operationId: createStatus
+      summary: Create new Incident status
+      operationId: createIncidentStatus
+      tags:
+        - Incidents
       requestBody:
         content:
           application/json:
@@ -797,10 +923,34 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusResponse'
+                
+                
+                
+    delete:
+      summary: Delete Incident Status record
+      operationId: deleteIncidentStatus
+      tags:
+        - Incidents
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Status deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse' 
   /employees:
     get:
       summary: Get all employees
       operationId: getAllEmployees
+      tags:
+        - Employees
       parameters:
         - name: page
           in: query
@@ -822,6 +972,8 @@ paths:
     post:
       summary: Create new employee
       operationId: createEmployee
+      tags:
+        - Employees
       requestBody:
         content:
           application/json:
@@ -834,10 +986,81 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
+                
+                
+  /employee/{id}:
+    get:
+      summary: Get Employee record by ID
+      operationId: getEmployeeById
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
+                
+                
+    put:
+      summary: Update Employee record
+      operationId: updateEmployee
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeRequest'
+      responses:
+        '200':
+          description: Employee record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
+                
+    delete:
+      summary: Delete Employee record
+      operationId: deleteEmployee
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Employee record deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'          
+                
   /departments:
     get:
       summary: Get all departments
       operationId: getAllDepartments
+      tags:
+        - Departments
       responses:
         '200':
           description: Successful operation
@@ -848,6 +1071,8 @@ paths:
     post:
       summary: Create new department
       operationId: createDepartment
+      tags:
+        - Departments
       requestBody:
         content:
           application/json:
@@ -860,10 +1085,80 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
+                
+                
+  /departments/{id}:
+    get:
+      summary: Get Department record by ID
+      operationId: getDepartmentById
+      tags:
+        - Departments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
+                
+                
+    put:
+      summary: Update Department record
+      operationId: updateDepartment
+      tags:
+        - Departments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentRequest'
+      responses:
+        '200':
+          description: Dpartment record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
+                
+    delete:
+      summary: Delete Department
+      operationId: deleteDepartment
+      tags:
+        - Departments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Department deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse' 
   /designations:
     get:
       summary: Get all designations
       operationId: getAllDesignations
+      tags:
+        - Designations
       responses:
         '200':
           description: Successful operation
@@ -874,6 +1169,8 @@ paths:
     post:
       summary: Create new designation
       operationId: createDesignation
+      tags:
+        - Designations
       requestBody:
         content:
           application/json:
@@ -886,3 +1183,83 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationResponse'
+                
+          
+  /designations/{id}:       
+  
+  
+    get:
+      summary: Get Designatioh record by ID
+      operationId: getDesignationById
+      tags:
+        - Designations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationResponse'
+                
+                
+    put:
+      summary: Update Designation record
+      operationId: updateDesignation
+      tags:
+        - Designations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationRequest'
+      responses:
+        '200':
+          description: Designation record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationResponse'
+    delete:
+      summary: Delete Designation
+      operationId: deleteDesignation
+      tags:
+        - Designations
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Designation deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'   
+  
+  
+  
+                
+                
+                
+                
+                
+                
+                
+                
