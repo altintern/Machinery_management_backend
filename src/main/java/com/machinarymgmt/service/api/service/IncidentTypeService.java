@@ -1,7 +1,7 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.IncidentType;
-import com.machinarymgmt.service.api.dto.IncidentTypeDto;
+import com.machinarymgmt.service.dto.IncidentTypeDto;
 
 import java.util.List;
 import java.util.Optional;

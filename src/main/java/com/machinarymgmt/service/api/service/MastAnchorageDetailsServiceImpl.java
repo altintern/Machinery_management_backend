@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.MastAnchorageDetailsRepository;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.MastAnchorageDetails;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.MastAnchorageDetailsDto;
+import com.machinarymgmt.service.dto.MastAnchorageDetailsDto;
 import com.machinarymgmt.service.api.mapper.MastAnchorageDetailsMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

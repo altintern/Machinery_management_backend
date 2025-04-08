@@ -1,12 +1,13 @@
 package com.machinarymgmt.service.api.v1;
 
+import com.machinarymgmt.service.api.MakesApi;
 import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.config.dto.ErrorType;
 import com.machinarymgmt.service.api.data.model.Make;
-import com.machinarymgmt.service.api.dto.MakeDto;
 import com.machinarymgmt.service.api.mapper.MakeMapper;
 import com.machinarymgmt.service.api.service.MakeService;
+import com.machinarymgmt.service.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,76 +20,86 @@ import static com.machinarymgmt.service.api.utils.Constants.MAKE_URL;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(MAKE_URL)
-public class MakeApiController {
+public class MakeApiController implements MakesApi {
 
     private final MakeService makeService;
     private final MakeMapper makeMapper;
     private final ApiResponseBuilder responseBuilder;
 
-    @GetMapping
-    public ResponseEntity<BaseApiResponse<List<MakeDto>>> getAllMakes() {
+    @Override
+    public ResponseEntity<MakeListResponse> getAllMakes() throws Exception {
         List<MakeDto> makes = makeService.findAllDto();
-        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(makes));
+        MakeListResponse mi = makeMapper.toDtoList(responseBuilder.buildSuccessApiResponse("All makes are retrieved successfully"));
+        mi.data(makes);
+        System.out.println(mi);
+        return ResponseEntity.ok(mi);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BaseApiResponse<MakeDto>> getMakeById(@PathVariable Long id) {
-        return makeService.findDtoById(id)
-                .map(make -> ResponseEntity.ok(responseBuilder.buildSuccessResponse(make)))
-                .orElseGet(() -> ResponseEntity.ok(responseBuilder.buildErrorResponse(
-                        "Make not found with id: " + id,
-                        ErrorType.NOT_FOUND)));
-    }
 
-    @PostMapping
-    public ResponseEntity<BaseApiResponse<MakeDto>> createMake(@Valid @RequestBody MakeDto makeDto) {
-        if (makeService.existsByName(makeDto.getMakeName())) {
-            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
-                    "Make already exists with name: " + makeDto.getMakeName(),
-                    ErrorType.DUPLICATE));
-        }
-
-        Make make = makeMapper.toEntity(makeDto);
-        Make savedMake = makeService.save(make);
-        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(
-                makeMapper.toDto(savedMake),
-                "Make created successfully"));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<BaseApiResponse<MakeDto>> updateMake(
-            @PathVariable Long id,
-            @Valid @RequestBody MakeDto makeDto) {
-        if (!makeService.existsById(id)) {
-            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
-                    "Make not found with id: " + id,
-                    ErrorType.NOT_FOUND));
-        }
-
-        Make existingMake = makeService.findById(id).get();
-        if (!existingMake.getName().equals(makeDto.getMakeName()) &&
-                makeService.existsByName(makeDto.getMakeName())) {
-            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
-                    "Make already exists with name: " + makeDto.getMakeName(),
-                    ErrorType.DUPLICATE));
-        }
-
-        existingMake.setName(makeDto.getMakeName());
-        Make updatedMake = makeService.save(existingMake);
-        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(
-                makeMapper.toDto(updatedMake),
-                "Make updated successfully"));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<BaseApiResponse<Void>> deleteMake(@PathVariable Long id) {
-        if (!makeService.existsById(id)) {
-            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
-                    "Make not found with id: " + id,
-                    ErrorType.NOT_FOUND));
-        }
-        makeService.deleteById(id);
-        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(null, "Make deleted successfully"));
-    }
+//    @GetMapping
+//    public ResponseEntity<BaseApiResponse<List<MakeDto>>> getAllMakes() {
+//        List<MakeDto> makes = makeService.findAllDto();
+//        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(makes));
+//    }
+//
+//    @GetMapping("/{id}")
+//    public ResponseEntity<BaseApiResponse<MakeDto>> getMakeById(@PathVariable Long id) {
+//        return makeService.findDtoById(id)
+//                .map(make -> ResponseEntity.ok(responseBuilder.buildSuccessResponse(make)))
+//                .orElseGet(() -> ResponseEntity.ok(responseBuilder.buildErrorResponse(
+//                        "Make not found with id: " + id,
+//                        ErrorType.NOT_FOUND)));
+//    }
+//
+//    @PostMapping
+//    public ResponseEntity<BaseApiResponse<MakeDto>> createMake(@Valid @RequestBody MakeDto makeDto) {
+//        if (makeService.existsByName(makeDto.getMakeName())) {
+//            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
+//                    "Make already exists with name: " + makeDto.getMakeName(),
+//                    ErrorType.DUPLICATE));
+//        }
+//
+//        Make make = makeMapper.toEntity(makeDto);
+//        Make savedMake = makeService.save(make);
+//        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(
+//                makeMapper.toDto(savedMake),
+//                "Make created successfully"));
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<BaseApiResponse<MakeDto>> updateMake(
+//            @PathVariable Long id,
+//            @Valid @RequestBody MakeDto makeDto) {
+//        if (!makeService.existsById(id)) {
+//            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
+//                    "Make not found with id: " + id,
+//                    ErrorType.NOT_FOUND));
+//        }
+//
+//        Make existingMake = makeService.findById(id).get();
+//        if (!existingMake.getName().equals(makeDto.getMakeName()) &&
+//                makeService.existsByName(makeDto.getMakeName())) {
+//            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
+//                    "Make already exists with name: " + makeDto.getMakeName(),
+//                    ErrorType.DUPLICATE));
+//        }
+//
+//        existingMake.setName(makeDto.getMakeName());
+//        Make updatedMake = makeService.save(existingMake);
+//        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(
+//                makeMapper.toDto(updatedMake),
+//                "Make updated successfully"));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<BaseApiResponse<Void>> deleteMake(@PathVariable Long id) {
+//        if (!makeService.existsById(id)) {
+//            return ResponseEntity.ok(responseBuilder.buildErrorResponse(
+//                    "Make not found with id: " + id,
+//                    ErrorType.NOT_FOUND));
+//        }
+//        makeService.deleteById(id);
+//        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(null, "Make deleted successfully"));
+//    }
 }
 

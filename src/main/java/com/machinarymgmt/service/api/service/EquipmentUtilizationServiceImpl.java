@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.EquipmentUtilizationRepository;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.EquipmentUtilization;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.EquipmentUtilizationDto;
+import com.machinarymgmt.service.dto.EquipmentUtilizationDto;
 import com.machinarymgmt.service.api.mapper.EquipmentUtilizationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,19 +1,17 @@
 package com.machinarymgmt.service.api.config.dto;
 
-import lombok.Getter;
 
-@Getter
 public enum ErrorType {
-    VALIDATION_ERROR("Validation Error"),
-    SYSTEM_ERROR("System Error"),
-    NOT_FOUND("Not Found"),
-    DUPLICATE("Duplicate Entry"),
-    UNAUTHORIZED("Unauthorized");
 
-    private final String value;
+  REQUEST_ERROR("REQUEST_ERROR"), API_ERROR("GENERAL_ERROR");
 
-    ErrorType(String value) {
-        this.value = value;
-    }
+  private String value;
+
+  ErrorType(String value) {
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }
-

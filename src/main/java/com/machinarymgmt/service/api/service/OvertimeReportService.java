@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.OvertimeReport;
-import com.machinarymgmt.service.api.dto.OvertimeReportDto;
+import com.machinarymgmt.service.dto.OvertimeReportDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

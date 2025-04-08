@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.MakeRepository;
 import com.machinarymgmt.service.api.data.model.Make;
-import com.machinarymgmt.service.api.dto.MakeDto;
+import com.machinarymgmt.service.dto.MakeDto;
 import com.machinarymgmt.service.api.mapper.MakeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

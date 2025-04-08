@@ -6,8 +6,9 @@ info:
 servers:
   - url: 'http://localhost:8080/api/v1'
     description: Local development server
-    
+
 tags:
+
   - name: Equipments
     description: Endpoints for managing machinery and equipment inventory.
 
@@ -40,6 +41,20 @@ tags:
 
   - name: Designations
     description: Endpoints for managing job roles and designations related to equipment operations.
+
+  - name: MastAnchorage
+    description: Endpoints for handling mast and anchorage details.
+
+  - name: OvertimeReport
+    description: Endpoints for managing employee overtime reports.
+
+  - name: PettyCash
+    description: Endpoints for tracking petty cash transactions and expenses.
+
+  - name: StockStatement
+    description: Endpoints for managing and tracking stock statements and inventory details.
+
+
 
 
 paths:
@@ -76,7 +91,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentRequestDto'
       responses:
         '200':
           description: Equipment created successfully
@@ -120,7 +135,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentRequestDto'
       responses:
         '200':
           description: Equipment updated successfully
@@ -146,8 +161,118 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
-                
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+  /equipment/utilization:
+    get:
+      summary: Get all equipment's Utilization
+      operationId: getAllEquipmentUtilization
+      tags:
+        - Equipments
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationListResponse'
+
+    post:
+      summary: Create new equipment's Utilization
+      operationId: createEquipmentUtilization
+      tags:
+        - Equipments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationDto'
+      responses:
+        '200':
+          description: Equipment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationResponse'
+
+  /equipment/utilization/{id}:
+    get:
+      summary: Get equipment's Utilization by ID
+      operationId: getEquipmentUtilizationById
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationResponse'
+
+    put:
+      summary: Update equipment's Utilization
+      operationId: updateEquipmentUtilization
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationDto'
+      responses:
+        '200':
+          description: Equipment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentUtilizationResponse'
+
+    delete:
+      summary: Delete equipment's Utilization
+      operationId: deleteEquipmentUtilization
+      tags:
+        - Equipments
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Equipment's Utilization deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
   /maintenance:
     get:
       summary: Get all maintenance logs
@@ -181,7 +306,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceLogRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceLogRequestDto'
       responses:
         '200':
           description: Maintenance log created successfully
@@ -225,7 +350,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceLogRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceLogRequestDto'
       responses:
         '200':
           description: Maintenance log updated successfully
@@ -251,7 +376,238 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+  /maintenance/reading:
+    get:
+      summary: Get all maintenance Reading
+      operationId: getAllMaintenanceReading
+      tags:
+        - Maintenance
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingListResponse'
+
+
+    post:
+      summary: Create new maintenance's Readings
+      operationId: createMaintenanceReadings
+      tags:
+        - Maintenance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingRequestDto'
+      responses:
+        '200':
+          description: Maintenance Readings created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingRequestResponse'
+
+  /maintenance/reading/{id}:
+    get:
+      summary: Get maintenance Reading by ID
+      operationId: getMaintenanceReadingById
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingResponse'
+
+    put:
+      summary: Update maintenance Reading
+      operationId: updateMaintenanceReading
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingDto'
+      responses:
+        '200':
+          description: Maintenance reading updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingResponse'
+
+
+    delete:
+      summary: Delete maintenance reading
+      operationId: deleteMaintenanceReading
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Maintenance Reading deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+  /maintenance/partused:
+    get:
+      summary: Get all maintenance Partused
+      operationId: getAllMaintenancePartused
+      tags:
+        - Maintenance
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedListResponse'
+
+
+    post:
+      summary: Create new maintenance part used
+      operationId: createMaintenancePartUsed
+      tags:
+        - Maintenance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedDto'
+      responses:
+        '200':
+          description: Maintenance Partused created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedResponse'
+
+  /maintenance/partused/{id}:
+    get:
+      summary: Get maintenance Partused by ID
+      operationId: getMaintenancePartUsedById
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedResponse'
+
+
+    put:
+      summary: Update maintenance Part used
+      operationId: updateMaintenancePartUsed
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedDto'
+      responses:
+        '200':
+          description: Maintenance Part used updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedResponse'
+
+
+
+    delete:
+      summary: Delete maintenance part used
+      operationId: deleteMaintenancePartUsed
+      tags:
+        - Maintenance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Maintenance Part used deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+
+
+
+
   /projects:
     get:
       summary: Get all projects
@@ -285,7 +641,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ProjectRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ProjectRequestDto'
       responses:
         '200':
           description: Project created successfully
@@ -329,7 +685,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ProjectRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ProjectRequestDto'
       responses:
         '200':
           description: Project updated successfully
@@ -355,7 +711,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /categories:
     get:
       summary: Get all equipment categories
@@ -368,7 +724,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryListResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryListResponse'
     post:
       summary: Create new equipment category
       operationId: createCategory
@@ -378,14 +734,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryDto'
       responses:
         '200':
           description: Category created successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryResponse'
   /categories/{id}:
     get:
       summary: Get equipment category by ID
@@ -405,7 +761,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryResponse'
     put:
       summary: Update equipment category
       operationId: updateCategory
@@ -422,14 +778,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryDto'
       responses:
         '200':
           description: Category updated successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/CategoryResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryResponse'
     delete:
       summary: Delete equipment category
       operationId: deleteCategory
@@ -448,7 +804,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /makes:
     get:
       summary: Get all makes
@@ -471,14 +827,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MakeRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MakeDto'
       responses:
         '200':
           description: Make created successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MakeResponse'
+                type: object
+                properties:
+                  data:
+                    $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /makes/{id}:
     get:
       summary: Get make by ID
@@ -515,7 +874,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MakeRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MakeDto'
       responses:
         '200':
           description: Make updated successfully
@@ -541,7 +900,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /models:
     get:
       summary: Get all models
@@ -564,7 +923,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelDto'
       responses:
         '200':
           description: Model created successfully
@@ -608,7 +967,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelDto'
       responses:
         '200':
           description: Model updated successfully
@@ -634,7 +993,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /models/make/{makeId}:
     get:
       summary: Get models by make ID
@@ -688,7 +1047,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ItemRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ItemDto'
       responses:
         '200':
           description: Item created successfully
@@ -732,7 +1091,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ItemRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ItemDto'
       responses:
         '200':
           description: Item updated successfully
@@ -758,7 +1117,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /incidents:
     get:
       summary: Get all incident reports
@@ -792,7 +1151,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportDto'
       responses:
         '200':
           description: Incident report created successfully
@@ -836,7 +1195,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportDto'
       responses:
         '200':
           description: Incident report updated successfully
@@ -862,7 +1221,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /incidents/types:
     get:
       summary: Get all incident types
@@ -885,7 +1244,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeDto'
       responses:
         '200':
           description: Incident type created successfully
@@ -905,7 +1264,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusListResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityResponse'
     post:
       summary: Create new Incident status
       operationId: createIncidentStatus
@@ -915,17 +1274,17 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityDto'
       responses:
         '200':
           description: Status created successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusResponse'
-                
-                
-                
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityResponse'
+
+
+
     delete:
       summary: Delete Incident Status record
       operationId: deleteIncidentStatus
@@ -944,7 +1303,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse' 
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /employees:
     get:
       summary: Get all employees
@@ -978,7 +1337,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeDto'
       responses:
         '200':
           description: Employee created successfully
@@ -986,8 +1345,8 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
-                
-                
+
+
   /employee/{id}:
     get:
       summary: Get Employee record by ID
@@ -1008,8 +1367,8 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
-                
-                
+
+
     put:
       summary: Update Employee record
       operationId: updateEmployee
@@ -1026,7 +1385,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeDto'
       responses:
         '200':
           description: Employee record updated successfully
@@ -1034,7 +1393,7 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeResponse'
-                
+
     delete:
       summary: Delete Employee record
       operationId: deleteEmployee
@@ -1053,8 +1412,121 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'          
-                
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+  /employees/assignment:
+
+    get:
+      summary: Get Employee's Assignment records
+      operationId: getAllEmployeesAssignments
+      tags:
+        - Employees
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 0
+        - name: size
+          in: query
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentListResponse'
+
+    post:
+      summary: Create new Assignment for Employee
+      operationId: createEmployeeAssignment
+      tags:
+        - Employees
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentDto'
+      responses:
+        '200':
+          description: Employee created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentResponse'
+
+  /employees/assignment/{id}:
+    get:
+      summary: Get Employee's Assignment record by ID
+      operationId: getEmployeeAssignmentById
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentResponse'
+
+    put:
+      summary: Update Employee's Assignment
+      operationId: updateEmployeeAssigment
+      tags:
+        - Employees
+      parameters:
+            - name: id
+              in: path
+              required: true
+              schema:
+                type: integer
+                format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentDto'
+      responses:
+        '200':
+          description: Employee record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EmployeeAssignmentResponse'
+
+
+    delete:
+      summary: Delete Employee record
+      operationId: deleteEmployeeAssignment
+      tags:
+        - Employees
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Employee record deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
   /departments:
     get:
       summary: Get all departments
@@ -1077,7 +1549,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentDto'
       responses:
         '200':
           description: Department created successfully
@@ -1085,8 +1557,8 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
-                
-                
+
+
   /departments/{id}:
     get:
       summary: Get Department record by ID
@@ -1107,8 +1579,8 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
-                
-                
+
+
     put:
       summary: Update Department record
       operationId: updateDepartment
@@ -1125,7 +1597,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentDto'
       responses:
         '200':
           description: Dpartment record updated successfully
@@ -1133,7 +1605,7 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentResponse'
-                
+
     delete:
       summary: Delete Department
       operationId: deleteDepartment
@@ -1152,7 +1624,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse' 
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /designations:
     get:
       summary: Get all designations
@@ -1175,7 +1647,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationDto'
       responses:
         '200':
           description: Designation created successfully
@@ -1183,11 +1655,11 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationResponse'
-                
-          
-  /designations/{id}:       
-  
-  
+
+
+  /designations/{id}:
+
+
     get:
       summary: Get Designatioh record by ID
       operationId: getDesignationById
@@ -1207,8 +1679,8 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationResponse'
-                
-                
+
+
     put:
       summary: Update Designation record
       operationId: updateDesignation
@@ -1225,7 +1697,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationRequest'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DesignationDto'
       responses:
         '200':
           description: Designation record updated successfully
@@ -1251,15 +1723,407 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/BaseResponse'   
-  
-  
-  
-                
-                
-                
-                
-                
-                
-                
-                
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+  /mastanchorage:
+    get:
+      summary: Get all Mast Anchorage Details
+      operationId: getAllMastAnchorage
+      tags:
+        - MastAnchorage
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsListResponse'
+
+    post:
+      summary: Create new Mast Anchorage
+      operationId: createMastAnchorage
+      tags:
+        - MastAnchorage
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsDto'
+      responses:
+        '200':
+          description: Mast Anchorage created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsResponse'
+
+  /mastanchorage/{id}:
+    get:
+      summary: Get Mast Anchorage record by ID
+      operationId: getMastAnchorageById
+      tags:
+        - MastAnchorage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsResponse'
+
+
+    put:
+      summary: Update Mast Anchorage Details
+      operationId: updateMastAnchorage
+      tags:
+        - MastAnchorage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsDto'
+      responses:
+        '200':
+          description: Mast Anchorage record updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MastAnchorageDetailsResponse'
+
+    delete:
+      summary: Delete Mast Anchorage by ID
+      operationId: deleteMastAnchorage
+      tags:
+        - MastAnchorage
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Mast Anchorage deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+
+  /overtimereport:
+    get:
+      summary: Get all Overtime Record
+      operationId: getOvertimeReport
+      tags:
+        - OvertimeReport
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportListResponse'
+
+    post:
+      summary: Create new Overtime Record
+      operationId: createOvertimeReport
+      tags:
+        - OvertimeReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportDto'
+      responses:
+        '200':
+          description: Overtime Report created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportResponse'
+
+  /overtimereport/{id}:
+    get:
+      summary: Get Overtime report by ID
+      operationId: getOvertimeReportById
+      tags:
+        - OvertimeReport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportResponse'
+
+    put:
+      summary: Update Overtime reports
+      operationId: updateOvertimeReport
+      tags:
+        - OvertimeReport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportDto'
+      responses:
+        '200':
+          description: Overtime report updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/OvertimeReportResponse'
+
+    delete:
+      summary: Delete Overtime Report by ID
+      operationId: deleteOvertimeReport
+      tags:
+        - OvertimeReport
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Overtime Report deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+
+
+  /pettycash:
+    get:
+      summary: Get all Petty Cash Transactions
+      operationId: getPettyCash
+      tags:
+        - PettyCash
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionListResponse'
+
+    post:
+      summary: Create new Petty Cash Transaction
+      operationId: createPettyCash
+      tags:
+        - PettyCash
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionDto'
+      responses:
+        '200':
+          description: Petty Cash Transaction created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionResponse'
+
+
+
+  /pettycash/{id}:
+    get:
+      summary: Get PettyCash Transaction by ID
+      operationId: getPettyCashByID
+      tags:
+        - PettyCash
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionResponse'
+
+    put:
+      summary: Update Pettycash Transactions
+      operationId: updatePettyCash
+      tags:
+        - PettyCash
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionDto'
+      responses:
+        '200':
+          description: Petty Cash Transation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionResponse'
+
+    delete:
+      summary: Delete Petty Cash Transaction by ID
+      operationId: deletePettyCash
+      tags:
+        - PettyCash
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Pettycash Transaction deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+  /stockstatement:
+    get:
+      summary: Get all Stock Statements
+      operationId: getStockStatement
+      tags:
+        - StockStatement
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StockStatementListResponse'
+
+    post:
+      summary: Create new Stock Statement record
+      operationId: createStockStatement
+      tags:
+        - StockStatement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StockStatementDto'
+      responses:
+        '200':
+          description: Stock statement created successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StockStatementResponse'
+
+  /stockstatement/{id}:
+    get:
+      summary: Get Stock Statement by ID
+      operationId: getStockStatementByID
+      tags:
+        - StockStatement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StockStatementResponse'
+
+
+    put:
+      summary: Update Stock Statement
+      operationId: updateStockStatement
+      tags:
+        - StockStatement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityDto'
+      responses:
+        '200':
+          description: Stock Statement updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StockStatementResponse'
+
+    delete:
+      summary: Delete Stock statement by ID
+      operationId: deleteStockStatement
+      tags:
+        - StockStatement
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Stock Statement deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+

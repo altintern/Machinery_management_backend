@@ -1,7 +1,7 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.StatusEntity;
-import com.machinarymgmt.service.api.dto.StatusEntityDto;
+import com.machinarymgmt.service.dto.StatusEntityDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.EmployeeAssignment;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.EmployeeAssignmentDto;
+import com.machinarymgmt.service.dto.EmployeeAssignmentDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -18,23 +18,13 @@ import java.util.List;
     uses = {EmployeeMapper.class, ProjectMapper.class, EquipmentMapper.class}
 )
 public interface EmployeeAssignmentMapper extends MachinaryMgmtMapper {
-    
-    @Mapping(source = "employee.id", target = "employeeId")
-    @Mapping(source = "project.id", target = "projectId")
-    @Mapping(source = "equipment.id", target = "equipmentId")
+
     EmployeeAssignmentDto toDto(EmployeeAssignment assignment);
     
     List<EmployeeAssignmentDto> toDtoList(List<EmployeeAssignment> assignments);
-    
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "employee", ignore = true)
-    @Mapping(target = "project", ignore = true)
-    @Mapping(target = "equipment", ignore = true)
+
     EmployeeAssignment toEntity(EmployeeAssignmentDto dto);
-    
-    @Mapping(target = "employee", ignore = true)
-    @Mapping(target = "project", ignore = true)
-    @Mapping(target = "equipment", ignore = true)
+
     void updateEntityFromDto(EmployeeAssignmentDto dto, @MappingTarget EmployeeAssignment assignment);
     
     default EmployeeAssignment fromDtoWithReferences(

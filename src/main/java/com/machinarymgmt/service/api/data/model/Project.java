@@ -42,9 +42,6 @@ public class Project {
     private List<EmployeeAssignment> employeeAssignments;
     
     @OneToMany(mappedBy = "project")
-    private List<CompanyProjectEquipment> companyAssignments;
-    
-    @OneToMany(mappedBy = "project")
     private List<PettyCashTransaction> pettyCashTransactions;
     
     @OneToMany(mappedBy = "project")

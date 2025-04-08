@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.EmployeeRepository;
 import com.machinarymgmt.service.api.data.model.Department;
 import com.machinarymgmt.service.api.data.model.Designation;
 import com.machinarymgmt.service.api.data.model.Employee;
-import com.machinarymgmt.service.api.dto.EmployeeDto;
+import com.machinarymgmt.service.dto.EmployeeDto;
 import com.machinarymgmt.service.api.mapper.EmployeeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

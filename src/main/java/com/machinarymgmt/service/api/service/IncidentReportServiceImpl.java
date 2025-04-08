@@ -5,7 +5,7 @@ import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
 import com.machinarymgmt.service.api.data.model.IncidentType;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.IncidentReportDto;
+import com.machinarymgmt.service.dto.IncidentReportDto;
 import com.machinarymgmt.service.api.mapper.IncidentReportMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

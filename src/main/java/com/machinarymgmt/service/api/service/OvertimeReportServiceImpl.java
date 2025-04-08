@@ -3,7 +3,7 @@ package com.machinarymgmt.service.api.service;
 import com.machinarymgmt.service.api.data.OvertimeReportRepository;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.OvertimeReport;
-import com.machinarymgmt.service.api.dto.OvertimeReportDto;
+import com.machinarymgmt.service.dto.OvertimeReportDto;
 import com.machinarymgmt.service.api.mapper.OvertimeReportMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

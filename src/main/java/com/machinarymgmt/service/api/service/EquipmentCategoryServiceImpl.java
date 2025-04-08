@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.EquipmentCategoryRepository;
 import com.machinarymgmt.service.api.data.model.EquipmentCategory;
-import com.machinarymgmt.service.api.dto.EquipmentCategoryDto;
+import com.machinarymgmt.service.dto.EquipmentCategoryDto;
 import com.machinarymgmt.service.api.mapper.EquipmentCategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

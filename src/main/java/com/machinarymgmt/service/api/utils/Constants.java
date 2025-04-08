@@ -14,5 +14,6 @@ public class Constants {
     public static final String MODEL_URL = BASE_URL + "/models";
     public static final String ITEM_URL = BASE_URL + "/items";
     public static final String INCIDENT_URL = BASE_URL + "/incidents";
+    public static final String RESPONSE_MESSAGE_KEY_SUCCESS = "success";
 }
 

@@ -3,8 +3,7 @@ package com.machinarymgmt.service.api.mapper;
 import com.machinarymgmt.service.api.data.model.Item;
 import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
 import com.machinarymgmt.service.api.data.model.MaintenancePartsUsed;
-import com.machinarymgmt.service.api.dto.MaintenancePartUsedDto;
-import com.machinarymgmt.service.api.dto.MaintenancePartUsedRequestDto;
+import com.machinarymgmt.service.dto.MaintenancePartUsedDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -18,21 +17,15 @@ import java.util.List;
     uses = {ItemMapper.class}
 )
 public interface MaintenancePartUsedMapper extends MachinaryMgmtMapper {
-    
-    @Mapping(source = "item.id", target = "itemId")
-    @Mapping(source = "quantity", target = "quantity")
+
     MaintenancePartUsedDto toDto(MaintenancePartsUsed partsUsed);
     
     List<MaintenancePartUsedDto> toDtoList(List<MaintenancePartsUsed> partsUsed);
-    
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "maintenanceLog", ignore = true)
-    @Mapping(target = "item", ignore = true)
-    @Mapping(source = "quantity", target = "quantity")
-    MaintenancePartsUsed toEntity(MaintenancePartUsedRequestDto dto);
+
+    MaintenancePartsUsed toEntity(MaintenancePartUsedDto dto);
     
     default MaintenancePartsUsed fromDtoWithReferences(
-            MaintenancePartUsedRequestDto dto,
+            MaintenancePartUsedDto dto,
             MachineryMaintenanceLog log,
             Item item) {
         MaintenancePartsUsed partsUsed = toEntity(dto);

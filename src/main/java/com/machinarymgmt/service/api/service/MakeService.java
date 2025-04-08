@@ -1,7 +1,7 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.Make;
-import com.machinarymgmt.service.api.dto.MakeDto;
+import com.machinarymgmt.service.dto.MakeDto;
 
 import java.util.List;
 import java.util.Optional;

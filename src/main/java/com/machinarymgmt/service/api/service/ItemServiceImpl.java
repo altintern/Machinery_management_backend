@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.ItemRepository;
 import com.machinarymgmt.service.api.data.model.Item;
-import com.machinarymgmt.service.api.dto.ItemDto;
+import com.machinarymgmt.service.dto.ItemDto;
 import com.machinarymgmt.service.api.mapper.ItemMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

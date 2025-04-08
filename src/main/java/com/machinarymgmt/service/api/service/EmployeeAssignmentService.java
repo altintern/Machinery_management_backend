@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.EmployeeAssignment;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.EmployeeAssignmentDto;
+import com.machinarymgmt.service.dto.EmployeeAssignmentDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.StatusEntityRepository;
 import com.machinarymgmt.service.api.data.model.StatusEntity;
-import com.machinarymgmt.service.api.dto.StatusEntityDto;
+import com.machinarymgmt.service.dto.StatusEntityDto;
 import com.machinarymgmt.service.api.mapper.StatusEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

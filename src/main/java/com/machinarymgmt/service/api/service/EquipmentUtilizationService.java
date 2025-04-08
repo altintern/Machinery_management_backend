@@ -3,7 +3,7 @@ package com.machinarymgmt.service.api.service;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.EquipmentUtilization;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.EquipmentUtilizationDto;
+import com.machinarymgmt.service.dto.EquipmentUtilizationDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

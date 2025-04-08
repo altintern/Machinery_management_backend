@@ -55,9 +55,6 @@ public class Equipment {
     private List<EmployeeAssignment> employeeAssignments;
     
     @OneToMany(mappedBy = "equipment")
-    private List<CompanyProjectEquipment> companyAssignments;
-    
-    @OneToMany(mappedBy = "equipment")
     private List<MachineryMaintenanceLog> maintenanceLogs;
     
     @OneToMany(mappedBy = "equipment")

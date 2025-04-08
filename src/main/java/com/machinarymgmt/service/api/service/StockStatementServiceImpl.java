@@ -5,7 +5,7 @@ import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Item;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.api.data.model.StockStatement;
-import com.machinarymgmt.service.api.dto.StockStatementDto;
+import com.machinarymgmt.service.dto.StockStatementDto;
 import com.machinarymgmt.service.api.mapper.StockStatementMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

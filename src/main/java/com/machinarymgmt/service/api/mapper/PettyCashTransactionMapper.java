@@ -4,7 +4,7 @@ import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Item;
 import com.machinarymgmt.service.api.data.model.PettyCashTransaction;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.PettyCashTransactionDto;
+import com.machinarymgmt.service.dto.PettyCashTransactionDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -18,23 +18,13 @@ import java.util.List;
     uses = {ProjectMapper.class, EquipmentMapper.class, ItemMapper.class}
 )
 public interface PettyCashTransactionMapper extends MachinaryMgmtMapper {
-    
-    @Mapping(source = "project.id", target = "projectId")
-    @Mapping(source = "equipment.id", target = "equipmentId")
-    @Mapping(source = "item.id", target = "itemId")
+
     PettyCashTransactionDto toDto(PettyCashTransaction transaction);
     
     List<PettyCashTransactionDto> toDtoList(List<PettyCashTransaction> transactions);
-    
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "project", ignore = true)
-    @Mapping(target = "equipment", ignore = true)
-    @Mapping(target = "item", ignore = true)
+
     PettyCashTransaction toEntity(PettyCashTransactionDto dto);
-    
-    @Mapping(target = "project", ignore = true)
-    @Mapping(target = "equipment", ignore = true)
-    @Mapping(target = "item", ignore = true)
+
     void updateEntityFromDto(PettyCashTransactionDto dto, @MappingTarget PettyCashTransaction transaction);
     
     default PettyCashTransaction fromDtoWithReferences(

@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.IncidentTypeRepository;
 import com.machinarymgmt.service.api.data.model.IncidentType;
-import com.machinarymgmt.service.api.dto.IncidentTypeDto;
+import com.machinarymgmt.service.dto.IncidentTypeDto;
 import com.machinarymgmt.service.api.mapper.IncidentTypeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -5,7 +5,7 @@ import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Item;
 import com.machinarymgmt.service.api.data.model.PettyCashTransaction;
 import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.dto.PettyCashTransactionDto;
+import com.machinarymgmt.service.dto.PettyCashTransactionDto;
 import com.machinarymgmt.service.api.mapper.PettyCashTransactionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

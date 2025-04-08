@@ -2,8 +2,8 @@ package com.machinarymgmt.service.api.mapper;
 
 import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
 import com.machinarymgmt.service.api.data.model.MaintenanceReading;
-import com.machinarymgmt.service.api.dto.MaintenanceReadingDto;
-import com.machinarymgmt.service.api.dto.MaintenanceReadingRequestDto;
+import com.machinarymgmt.service.dto.MaintenanceReadingDto;
+import com.machinarymgmt.service.dto.MaintenanceReadingRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -17,9 +17,7 @@ import java.math.BigDecimal;
 public interface MaintenanceReadingMapper extends MachinaryMgmtMapper {
     
     MaintenanceReadingDto toDto(MaintenanceReading reading);
-    
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "maintenanceLog", ignore = true)
+
     MaintenanceReading toEntity(MaintenanceReadingRequestDto dto);
     
     default MaintenanceReading fromDtoWithReferences(

@@ -3,7 +3,7 @@ package com.machinarymgmt.service.api.service;
 import com.machinarymgmt.service.api.data.model.Department;
 import com.machinarymgmt.service.api.data.model.Designation;
 import com.machinarymgmt.service.api.data.model.Employee;
-import com.machinarymgmt.service.api.dto.EmployeeDto;
+import com.machinarymgmt.service.dto.EmployeeDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

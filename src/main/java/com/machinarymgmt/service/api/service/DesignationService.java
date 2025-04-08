@@ -1,7 +1,7 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.Designation;
-import com.machinarymgmt.service.api.dto.DesignationDto;
+import com.machinarymgmt.service.dto.DesignationDto;
 
 import java.util.List;
 import java.util.Optional;

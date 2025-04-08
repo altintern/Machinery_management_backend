@@ -3,7 +3,7 @@ package com.machinarymgmt.service.api.service;
 import com.machinarymgmt.service.api.data.ModelRepository;
 import com.machinarymgmt.service.api.data.model.Make;
 import com.machinarymgmt.service.api.data.model.Model;
-import com.machinarymgmt.service.api.dto.ModelDto;
+import com.machinarymgmt.service.dto.ModelDto;
 import com.machinarymgmt.service.api.mapper.ModelMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.model.EquipmentCategory;
-import com.machinarymgmt.service.api.dto.EquipmentCategoryDto;
+import com.machinarymgmt.service.dto.EquipmentCategoryDto;
 
 import java.util.List;
 import java.util.Optional;

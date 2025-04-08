@@ -2,7 +2,7 @@ package com.machinarymgmt.service.api.service;
 
 import com.machinarymgmt.service.api.data.DesignationRepository;
 import com.machinarymgmt.service.api.data.model.Designation;
-import com.machinarymgmt.service.api.dto.DesignationDto;
+import com.machinarymgmt.service.dto.DesignationDto;
 import com.machinarymgmt.service.api.mapper.DesignationMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
