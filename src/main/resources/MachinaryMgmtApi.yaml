@@ -923,7 +923,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelRequestDto'
       responses:
         '200':
           description: Model created successfully
@@ -1124,17 +1124,6 @@ paths:
       operationId: getAllIncidents
       tags:
         - Incidents
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -1195,14 +1184,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportRequestDto'
       responses:
         '200':
           description: Incident report updated successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
     delete:
       summary: Delete incident report
       operationId: deleteIncident
@@ -1222,88 +1211,7 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
-  /incidents/types:
-    get:
-      summary: Get all incident types
-      operationId: getAllIncidentTypes
-      tags:
-        - Incidents
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeListResponse'
-    post:
-      summary: Create new incident type
-      operationId: createIncidentType
-      tags:
-        - Incidents
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeDto'
-      responses:
-        '200':
-          description: Incident type created successfully
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentTypeResponse'
-  /incident/statuses:
-    get:
-      summary: Get all Incident statuses
-      operationId: getAllIncidentStatuses
-      tags:
-        - Incidents
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityResponse'
-    post:
-      summary: Create new Incident status
-      operationId: createIncidentStatus
-      tags:
-        - Incidents
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityDto'
-      responses:
-        '200':
-          description: Status created successfully
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityResponse'
-
-
-
-    delete:
-      summary: Delete Incident Status record
-      operationId: deleteIncidentStatus
-      tags:
-        - Incidents
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Status deleted successfully
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
+  
   /employees:
     get:
       summary: Get all employees
@@ -2094,11 +2002,6 @@ paths:
           schema:
             type: integer
             format: int64
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/StatusEntityDto'
       responses:
         '200':
           description: Stock Statement updated successfully

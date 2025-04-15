@@ -1,10 +1,13 @@
 package com.machinarymgmt.service.api.service;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
 import com.machinarymgmt.service.api.data.model.IncidentType;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.IncidentReportDto;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -26,5 +29,6 @@ public interface IncidentReportService {
     List<IncidentReportDto> findAllDto();
     Page<IncidentReportDto> findAllDto(Pageable pageable);
     Optional<IncidentReportDto> findDtoById(Long id);
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse successApiResponse);
 }
 

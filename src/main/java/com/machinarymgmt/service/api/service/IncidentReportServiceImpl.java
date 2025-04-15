@@ -1,11 +1,13 @@
 package com.machinarymgmt.service.api.service;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.IncidentReportRepository;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
 import com.machinarymgmt.service.api.data.model.IncidentType;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.IncidentReportDto;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.api.mapper.IncidentReportMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -86,6 +88,12 @@ public class IncidentReportServiceImpl implements IncidentReportService {
     @Override
     public Optional<IncidentReportDto> findDtoById(Long id) {
         return findById(id).map(incidentReportMapper::toDto);
+    }
+
+    @Override
+    public MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse successApiResponse) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toBaseApiResponse'");
     }
 }
 
