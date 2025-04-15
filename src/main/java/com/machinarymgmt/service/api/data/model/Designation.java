@@ -22,6 +22,9 @@ public class Designation {
     
     @Column(name = "Designation_Name", nullable = false, unique = true)
     private String name;
+
+    @Column(name="Designation_Description", nullable=true)
+    private String description;
     
     @OneToMany(mappedBy = "designation")
     private List<Employee> employees;

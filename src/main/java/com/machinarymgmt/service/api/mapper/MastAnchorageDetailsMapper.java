@@ -1,9 +1,16 @@
 package com.machinarymgmt.service.api.mapper;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.MastAnchorageDetails;
 import com.machinarymgmt.service.api.data.model.Project;
+import com.machinarymgmt.service.dto.MastAnchorageDetailsResponse;
+import com.machinarymgmt.service.dto.MastAnchorageDetailsResponse;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.MastAnchorageDetailsDto;
+import com.machinarymgmt.service.dto.MastAnchorageDetailsRequestDto;
+import com.machinarymgmt.service.dto.MastAnchorageDetailsListResponse;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -24,10 +31,17 @@ public interface MastAnchorageDetailsMapper extends MachinaryMgmtMapper {
 
     MastAnchorageDetails toEntity(MastAnchorageDetailsDto dto);
 
-    void updateEntityFromDto(MastAnchorageDetailsDto dto, @MappingTarget MastAnchorageDetails details);
+    MastAnchorageDetails toEntity(MastAnchorageDetailsRequestDto dto);
+
+    void updateEntityFromDto(MastAnchorageDetailsRequestDto dto, @MappingTarget MastAnchorageDetails details);
+
+    MastAnchorageDetailsListResponse toMastAnchorageDetailsListResponse(BaseApiResponse baseApiResponse);
+
+    MastAnchorageDetailsResponse toMastAnchorageDetailsResponse(BaseApiResponse baseApiResponse);
+    
     
     default MastAnchorageDetails fromDtoWithReferences(
-            MastAnchorageDetailsDto dto,
+            MastAnchorageDetailsRequestDto dto,
             Project project,
             Equipment equipment) {
         MastAnchorageDetails details = toEntity(dto);
@@ -35,5 +49,6 @@ public interface MastAnchorageDetailsMapper extends MachinaryMgmtMapper {
         details.setEquipment(equipment);
         return details;
     }
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 }
 

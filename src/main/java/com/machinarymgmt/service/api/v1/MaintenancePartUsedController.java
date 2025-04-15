@@ -1,15 +1,17 @@
 package com.machinarymgmt.service.api.v1;
 
 import com.machinarymgmt.service.api.MaintenanceApi;
+import com.machinarymgmt.service.api.MaintenancePartUsedApi;
 import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.config.dto.ErrorType;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.EquipmentUtilization;
-import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
+import com.machinarymgmt.service.api.data.model.MaintenancePartsUsed;
 import com.machinarymgmt.service.api.service.EquipmentService;
-import com.machinarymgmt.service.api.service.MachineryMaintenanceLogService;
+import com.machinarymgmt.service.api.service.MaintenancePartsUsedService;
+//import com.machinarymgmt.service.api.service.MachineryMaintenancePartUsedService;
 import com.machinarymgmt.service.dto.EmployeeDto;
 import com.machinarymgmt.service.dto.EmployeeRequestDto;
 import com.machinarymgmt.service.dto.EmployeeResponse;
@@ -22,9 +24,13 @@ import com.machinarymgmt.service.dto.MaintenanceLogDto;
 import com.machinarymgmt.service.dto.MaintenanceLogListResponse;
 import com.machinarymgmt.service.dto.MaintenanceLogRequestDto;
 import com.machinarymgmt.service.dto.MaintenanceLogResponse;
-import com.machinarymgmt.service.api.mapper.MaintenanceLogMapper;
+import com.machinarymgmt.service.dto.MaintenancePartUsedListResponse;
+import com.machinarymgmt.service.dto.MaintenancePartUsedResponse;
+import com.machinarymgmt.service.api.mapper.MaintenancePartUsedMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import com.machinarymgmt.service.dto.MaintenancePartUsedDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,61 +44,70 @@ import java.util.Optional;
 
 import static com.machinarymgmt.service.api.utils.Constants.MAINTENANCE_URL;
 
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(MAINTENANCE_URL)
-public class MaintenanceController implements MaintenanceApi {
+public class MaintenancePartUsedController implements MaintenancePartUsedApi{
 
-   private final MachineryMaintenanceLogService maintenanceLogService;
-   private final MaintenanceLogMapper maintenanceLogMapper;
-   private final EquipmentService equipmentService;
-   private final ApiResponseBuilder responseBuilder;
-   @Override
-   public ResponseEntity<MaintenanceLogListResponse> getAllMaintenanceLogs(@Valid Integer page, @Valid Integer size)
-        throws Exception {
-    // TODO Auto-generated method stub
-    List<MaintenanceLogDto> maintenanceLogDtosList=  maintenanceLogMapper.toDtoList(maintenanceLogService.findAll());
-    MaintenanceLogListResponse maintenanceLogListResponse= maintenanceLogMapper.toMaintenanceLogListResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log build successfully"));
-    maintenanceLogListResponse.data(maintenanceLogDtosList);
-    return ResponseEntity.ok(maintenanceLogListResponse);
-   }
-   @Override
-   public ResponseEntity<MaintenanceLogResponse> getMaintenanceLogById(Long id) throws Exception {
-    // TODO Auto-generated method stub
-    MaintenanceLogDto maintenanceLogDto= maintenanceLogMapper.toDto(maintenanceLogService.findById(id).orElseThrow(() -> new Exception("Maintenance Log not found")));
-    MaintenanceLogResponse maintenanceLogResponse= maintenanceLogMapper.toMaintenanceLogResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log build by ID successfull"));
-    maintenanceLogResponse.setData(maintenanceLogDto);
-    return ResponseEntity.ok(maintenanceLogResponse);
-   }
-   @Override
-   public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMaintenanceLog(Long id) throws Exception {
-      // TODO Auto-generated method stub
-      maintenanceLogService.deleteById(id);
-      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceLogMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance log deleted successfully"));
-      return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
-   }
+      private final MaintenancePartUsedMapper maintenancePartUsedMapper;
+      private final MaintenancePartsUsedService maintenancePartsUsedService;
+      private final ApiResponseBuilder responseBuilder;
+      @Override
+      public ResponseEntity<MaintenancePartUsedListResponse> getAllMaintenancePartused(@Valid Integer page,
+            @Valid Integer size) throws Exception {
+         // TODO Auto-generated method stub
+         List<MaintenancePartUsedDto> maintenancePartUsedDtosList=  maintenancePartUsedMapper.toDtoList(maintenancePartsUsedService.findAll());
+         MaintenancePartUsedListResponse maintenancePartUsedListResponse=maintenancePartUsedMapper.toMaintenancePartUsedListResponse(responseBuilder.buildSuccessApiResponse("Maintenance Part used build successfully"));
+         maintenancePartUsedListResponse.setData(maintenancePartUsedDtosList);
+         return ResponseEntity.ok(maintenancePartUsedListResponse);
+            }
+      // @Override
+      // public ResponseEntity<MaintenancePartUsedResponse> getMaintenancePartUsedById(Long id) throws Exception {
+      //    // TODO Auto-generated method stub
+      //    MaintenancePartUsedDto maintenancePartUsedDto= maintenancePartUsedMapper.toDto(maintenancePartsUsedService.findById(id).orElseThrow(() -> new Exception("Maintenance part used not found")));
+      //    MaintenancePartUsedResponse maintenancePartUsedResponse= maintenancePartsUsedService.toMaintenancePartUsedResponse(responseBuilder.buildSuccessApiResponse("Maintenance Partused build by ID successfully"));
+      //    maintenancePartUsedResponse.setData(maintenancePartUsedDto);
+      //    return ResponseEntity.ok(maintenancePartUsedResponse);
+      // }
+      @Override
+      public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMaintenancePartUsed(Long id) throws Exception {
+         // TODO Auto-generated method stub
+         maintenancePartsUsedService.deleteById(id);
+         MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenancePartUsedMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance Part used deleted successfully"));
+         return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+      }
 
-   @Override
-   public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMaintenanceLog(Long id,
-         @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
-      // TODO Auto-generated method stub
-      MachineryMaintenanceLog existingMachineryMaintenanceLog= maintenanceLogService.findById(id).orElseThrow(() -> new Exception("Machinery Maintenance not found"));
-      maintenanceLogMapper.updateEntityFromDto(maintenanceLogRequestDto, existingMachineryMaintenanceLog);
-      MachineryMaintenanceLog updatedMachineryMaintenanceLog= maintenanceLogService.save(existingMachineryMaintenanceLog);
-      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceLogMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Machinery maintenance updated successfully"));
-      return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
-   }
+      @Override
+      public ResponseEntity<MaintenancePartUsedResponse> updateMaintenancePartUsed(Long id,
+            @Valid MaintenancePartUsedDto maintenancePartUsedDto) throws Exception {
+         // TODO Auto-generated method stub
+         return MaintenancePartUsedApi.super.updateMaintenancePartUsed(id, maintenancePartUsedDto);
+      }
+
+      
+      
+   // @Override
+   // public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMaintenanceLog(Long id,
+   //       @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
+   //    // TODO Auto-generated method stub
+   //    MachineryMaintenanceLog existingMachineryMaintenanceLog= maintenanceLogService.findById(id).orElseThrow(() -> new Exception("Machinery Maintenance not found"));
+   //    maintenanceLogMapper.updateEntityFromDto(maintenanceLogRequestDto, existingMachineryMaintenanceLog);
+   //    MachineryMaintenanceLog updatedMachineryMaintenanceLog= maintenanceLogService.save(existingMachineryMaintenanceLog);
+   //    MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceLogMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Machinery maintenance updated successfully"));
+   //    return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+   // }
 
 
-   @Override
-   public ResponseEntity<MaintenanceLogResponse> createMaintenanceLog(
-        @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
-    // TODO Auto-generated method stub
-    MachineryMaintenanceLog machineryMaintenanceLog= maintenanceLogMapper.toEntity(maintenanceLogRequestDto);
-    MachineryMaintenanceLog machineryMaintenanceLogsaved= maintenanceLogService.save(machineryMaintenanceLog);
-    MaintenanceLogResponse maintenanceLogResponse= maintenanceLogMapper.toMaintenanceLogResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log Created successfully"));
-    return new ResponseEntity<>(maintenanceLogResponse, HttpStatus.CREATED);
-   }
+   // @Override
+   // public ResponseEntity<MaintenanceLogResponse> createMaintenanceLog(
+   //      @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
+   //  // TODO Auto-generated method stub
+   //  MachineryMaintenanceLog machineryMaintenanceLog= maintenanceLogMapper.toEntity(maintenanceLogRequestDto);
+   //  MachineryMaintenanceLog machineryMaintenanceLogsaved= maintenanceLogService.save(machineryMaintenanceLog);
+   //  MaintenanceLogResponse maintenanceLogResponse= maintenanceLogMapper.toMaintenanceLogResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log Created successfully"));
+   //  return new ResponseEntity<>(maintenanceLogResponse, HttpStatus.CREATED);
+   // }
  
 
 //    @GetMapping

@@ -22,6 +22,9 @@ public class Department {
     
     @Column(name = "Dept_Name", nullable = false, unique = true)
     private String name;
+
+    @Column(name="Department_Description", nullable=true)
+    private String description;
     
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;

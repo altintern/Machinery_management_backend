@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>17</java.version>
+        <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <asciidoc.directory>${project.build.directory}/generated-docs</asciidoc.directory>
         <swagger.output.dir>${project.build.directory}/swagger</swagger.output.dir>

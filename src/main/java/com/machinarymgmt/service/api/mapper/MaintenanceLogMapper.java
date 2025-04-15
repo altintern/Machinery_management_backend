@@ -1,9 +1,13 @@
 package com.machinarymgmt.service.api.mapper;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
 import com.machinarymgmt.service.api.data.model.MaintenancePartsUsed;
 import com.machinarymgmt.service.api.data.model.MaintenanceReading;
+import com.machinarymgmt.service.dto.MaintenanceLogListResponse;
+import com.machinarymgmt.service.dto.MaintenanceLogResponse;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.MaintenanceLogDto;
 import com.machinarymgmt.service.dto.MaintenanceLogRequestDto;
 import org.mapstruct.Mapper;
@@ -27,6 +31,10 @@ public interface MaintenanceLogMapper extends MachinaryMgmtMapper {
     MachineryMaintenanceLog toEntity(MaintenanceLogRequestDto dto);
 
     void updateEntityFromDto(MaintenanceLogRequestDto dto, @MappingTarget MachineryMaintenanceLog log);
+
+    MaintenanceLogListResponse toMaintenanceLogListResponse(BaseApiResponse baseApiResponse);
+
+    MaintenanceLogResponse toMaintenanceLogResponse(BaseApiResponse baseApiResponse);
     
     default MachineryMaintenanceLog fromDtoWithReferences(
             MaintenanceLogRequestDto dto, 
@@ -39,5 +47,7 @@ public interface MaintenanceLogMapper extends MachinaryMgmtMapper {
         log.setReadings(readings);
         return log;
     }
+
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 }
 

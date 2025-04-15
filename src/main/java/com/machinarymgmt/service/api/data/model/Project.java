@@ -25,7 +25,19 @@ public class Project {
     
     @Column(name = "Project_Location")
     private String location;
-    
+
+    @Column(name ="Project_Description")
+    private String description;
+
+    @Column(name="Project_StartDate")
+    private String startDate;
+
+    @Column(name="Project_EndDate")
+    private String endDate;
+
+    @Column(name= "Project_Status")
+    private String status;
+
     @OneToMany(mappedBy = "project")
     private List<Equipment> equipment;
     

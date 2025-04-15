@@ -1,10 +1,17 @@
 package com.machinarymgmt.service.api.mapper;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.EmployeeAssignment;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.EmployeeAssignmentDto;
+import com.machinarymgmt.service.dto.EmployeeAssignmentRequestDto;
+import com.machinarymgmt.service.dto.EmployeeListResponse;
+import com.machinarymgmt.service.dto.EmployeeResponse;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
+import com.machinarymgmt.service.dto.EmployeeAssignmentListResponse;
+import com.machinarymgmt.service.dto.EmployeeAssignmentResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -25,10 +32,17 @@ public interface EmployeeAssignmentMapper extends MachinaryMgmtMapper {
 
     EmployeeAssignment toEntity(EmployeeAssignmentDto dto);
 
+    EmployeeAssignment toEntity(EmployeeAssignmentRequestDto dto);
+
     void updateEntityFromDto(EmployeeAssignmentDto dto, @MappingTarget EmployeeAssignment assignment);
+
+    
+    EmployeeAssignmentListResponse toEmployeeAssignmentListResponse(BaseApiResponse baseApiResponse);
+
+    EmployeeAssignmentResponse toEmployeeAssignmentResponse(BaseApiResponse baseApiResponse);
     
     default EmployeeAssignment fromDtoWithReferences(
-            EmployeeAssignmentDto dto,
+            EmployeeAssignmentRequestDto dto,
             Employee employee,
             Project project,
             Equipment equipment) {
@@ -38,5 +52,6 @@ public interface EmployeeAssignmentMapper extends MachinaryMgmtMapper {
         assignment.setEquipment(equipment);
         return assignment;
     }
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 }
 

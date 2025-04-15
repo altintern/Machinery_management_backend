@@ -4,6 +4,8 @@ import com.machinarymgmt.service.api.data.model.Department;
 import com.machinarymgmt.service.api.data.model.Designation;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.dto.EmployeeDto;
+import com.machinarymgmt.service.dto.EmployeeDto;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -23,5 +25,7 @@ public interface EmployeeService {
     List<EmployeeDto> findAllDto();
     Page<EmployeeDto> findAllDto(Pageable pageable);
     Optional<EmployeeDto> findDtoById(Long id);
+    //Employee createEmployee(EmployeeRequestDto dto) throws Exception;
+
 }
 
