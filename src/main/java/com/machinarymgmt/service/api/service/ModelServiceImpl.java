@@ -64,20 +64,18 @@ public class ModelServiceImpl implements ModelService {
     public List<ModelDto> findAllDto() {
         return modelMapper.toDtoList(findAll());
     }
-    
-<<<<<<< HEAD
+
     // @Override
     // public List<ModelDto> findDtoByMakeId(Long makeId) {
     //     return makeService.findById(makeId)
     //             .map(make -> modelMapper.toDtoList(findByMake(make)))
     //             .orElse(Collections.emptyList());
     // }
-=======
+
     @Override
     public Optional<ModelDto> findDtoById(Long id) {
         return findById(id).map(modelMapper::toDto);
     }
 
->>>>>>> testbranch3
 }
 
