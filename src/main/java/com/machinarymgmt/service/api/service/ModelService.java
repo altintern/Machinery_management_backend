@@ -17,6 +17,9 @@ public interface ModelService {
     boolean existsById(Long id);
     boolean existsByNameAndMake(String name, Make make);
     List<ModelDto> findAllDto();
+
     // List<ModelDto> findDtoByMakeId(Long makeId);
+    Optional<ModelDto> findDtoById(Long id);
+
 }
 

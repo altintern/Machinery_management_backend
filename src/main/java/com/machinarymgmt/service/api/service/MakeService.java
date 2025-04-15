@@ -15,6 +15,5 @@ public interface MakeService {
     boolean existsById(Long id);
     boolean existsByName(String name);
     List<MakeDto> findAllDto();
-    Optional<MakeDto> findDtoById(Long id);
 }
 

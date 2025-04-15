@@ -1,11 +1,16 @@
 package com.machinarymgmt.service.api.mapper;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.OvertimeReport;
+
 import com.machinarymgmt.service.dto.OvertimeReportDto;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.dto.OvertimeReportListResponse;
 import com.machinarymgmt.service.dto.OvertimeReportResponse;
+
+import com.machinarymgmt.service.dto.*;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -25,16 +30,15 @@ public interface OvertimeReportMapper extends MachinaryMgmtMapper {
     
     List<OvertimeReportDto> toDtoList(List<OvertimeReport> overtimeReports);
 
-    OvertimeReport toEntity(OvertimeReportDto dto);
+    OvertimeReport toEntity(OvertimeReportRequestDto dto);
 
-    void updateEntityFromDto(OvertimeReportDto dto, @MappingTarget OvertimeReport overtimeReport);
+    void updateEntityFromDto(OvertimeReportRequestDto dto, @MappingTarget OvertimeReport overtimeReport);
     
     default OvertimeReport fromDtoWithReferences(
-            OvertimeReportDto dto,
+            OvertimeReportRequestDto dto,
             Employee employee) {
         OvertimeReport overtimeReport = toEntity(dto);
         overtimeReport.setEmployee(employee);
-//        overtimeReport.setOtHours(BigDecimal.valueOf(dto.getOtHours()));
         return overtimeReport;
     }
     
@@ -49,5 +53,10 @@ public interface OvertimeReportMapper extends MachinaryMgmtMapper {
     OvertimeReportListResponse toDtoList(BaseApiResponse baseApiResponse);
     
     OvertimeReportResponse toOvertimeReportResponse(BaseApiResponse baseApiResponse);
+
+    OvertimeReportListResponse toOvertimeReportListResponse(BaseApiResponse baseApiResponse);
+
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
+
 }
 

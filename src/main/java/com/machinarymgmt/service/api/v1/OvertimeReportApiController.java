@@ -1,10 +1,14 @@
 package com.machinarymgmt.service.api.v1;
 
+
+import com.machinarymgmt.service.api.OvertimeReportApi;
+
 import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.config.dto.ErrorType;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.OvertimeReport;
+
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.OvertimeReportDto;
 import com.machinarymgmt.service.api.mapper.OvertimeReportMapper;
@@ -21,6 +25,22 @@ import org.springframework.web.bind.annotation.*;
 import com.machinarymgmt.service.api.OvertimeReportApi;
 import jakarta.validation.Valid;
 import java.time.LocalDate;
+
+import com.machinarymgmt.service.api.mapper.OvertimeReportMapper;
+import com.machinarymgmt.service.api.service.EmployeeService;
+import com.machinarymgmt.service.api.service.OvertimeReportService;
+import com.machinarymgmt.service.dto.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,39 +56,6 @@ public class OvertimeReportApiController implements OvertimeReportApi {
    private final OvertimeReportMapper overtimeReportMapper;
    private final ApiResponseBuilder responseBuilder;
 
-   @Override
-   public ResponseEntity<OvertimeReportResponse> updateOvertimeReport(Long id,
-         @Valid OvertimeReportDto overtimeReportDto) throws Exception {
-      // Check if overtime report exists
-      if (!overtimeReportService.existsById(id)) {
-         throw new Exception("Overtime report not found with id: " + id);
-      }
-
-      // Validate employee exists
-      Optional<Employee> employeeOpt = employeeService.findById(overtimeReportDto.getEmployeeId());
-      if (employeeOpt.isEmpty()) {
-         throw new Exception("Employee not found with id: " + overtimeReportDto.getEmployeeId());
-      }
-
-      // Get existing report
-      OvertimeReport existingReport = overtimeReportService.findById(id)
-            .orElseThrow(() -> new Exception("Overtime report not found with id: " + id));
-
-      // Update the report with new data
-      overtimeReportMapper.updateEntityFromDto(overtimeReportDto, existingReport);
-      existingReport.setEmployee(employeeOpt.get());
-
-      // Save the updated report
-      OvertimeReport updatedReport = overtimeReportService.save(existingReport);
-
-      // Create response
-      OvertimeReportDto updatedDto = overtimeReportMapper.toDto(updatedReport);
-      OvertimeReportResponse response = overtimeReportMapper.toOvertimeReportResponse(
-            responseBuilder.buildSuccessApiResponse("Overtime report updated successfully"));
-      response.setData(updatedDto);
-
-      return ResponseEntity.ok(response);
-   }
 
    
 
@@ -148,7 +135,27 @@ public class OvertimeReportApiController implements OvertimeReportApi {
       return ResponseEntity.ok(response);
    }
 
-   
+
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> updateOvertimeReport(Long id, OvertimeReportRequestDto overtimeReportRequestDto) throws Exception {
+        OvertimeReport existingReport = overtimeReportService.findById(id)
+                .orElseThrow(() -> new RuntimeException("Overtime Report not found with id: " + id));
+
+        Optional<Employee> employeeOpt = employeeService.findById(overtimeReportRequestDto.getEmployee().getId());
+        if (employeeOpt.isEmpty()) {
+            throw new RuntimeException("Employee not found with id: " + overtimeReportRequestDto.getEmployee().getId());
+        }
+
+        overtimeReportMapper.updateEntityFromDto(overtimeReportRequestDto, existingReport);
+        existingReport.setEmployee(employeeOpt.get());
+
+        OvertimeReport updatedReport = overtimeReportService.save(existingReport);
+
+        return ResponseEntity.ok(overtimeReportMapper.toBaseApiResponse(
+                responseBuilder.buildSuccessApiResponse("Overtime Report updated successfully")
+        ));
+    }
 
 //    @GetMapping
 //    public ResponseEntity<BaseApiResponse<List<OvertimeReportDto>>> getAllOvertimeReports(

@@ -21,12 +21,12 @@ public class MakeServiceImpl implements MakeService {
     public List<Make> findAll() {
         return makeRepository.findAll();
     }
-    
+
     @Override
     public Optional<Make> findById(Long id) {
         return makeRepository.findById(id);
     }
-    
+
     @Override
     public Optional<Make> findByName(String name) {
         return makeRepository.findByName(name);
@@ -55,11 +55,6 @@ public class MakeServiceImpl implements MakeService {
     @Override
     public List<MakeDto> findAllDto() {
         return makeMapper.toDtoList(findAll());
-    }
-    
-    @Override
-    public Optional<MakeDto> findDtoById(Long id) {
-        return findById(id).map(makeMapper::toDto);
     }
 }
 

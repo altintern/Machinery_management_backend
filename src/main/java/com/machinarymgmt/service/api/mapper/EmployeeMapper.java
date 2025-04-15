@@ -1,12 +1,19 @@
 package com.machinarymgmt.service.api.mapper;
+
 import com.machinarymgmt.service.dto.EmployeeListResponse;
 import com.machinarymgmt.service.dto.EmployeeResponse;
+
+
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Department;
 import com.machinarymgmt.service.api.data.model.Designation;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.dto.EmployeeDto;
+
 import com.machinarymgmt.service.dto.EmployeeRequestDto;
+
+//import com.machinarymgmt.service.dto.EmployeeRequestDto;
+
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -35,6 +42,8 @@ public interface EmployeeMapper extends MachinaryMgmtMapper {
     EmployeeListResponse toEmployeeListResponse(BaseApiResponse baseApiResponse);
 
     EmployeeResponse toEmployeeResponse(BaseApiResponse baseApiResponse);
+
+    void updateEntityFromDto(EmployeeDto dto, @MappingTarget Employee employee);
     
     default Employee fromDtoWithReferences(
             EmployeeRequestDto dto,
@@ -45,6 +54,7 @@ public interface EmployeeMapper extends MachinaryMgmtMapper {
         employee.setDepartment(department);
         return employee;
     }
+
     MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 }
 

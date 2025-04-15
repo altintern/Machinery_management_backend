@@ -32,16 +32,15 @@ import static com.machinarymgmt.service.api.utils.Constants.EQUIPMENT_URL;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(EQUIPMENTAPI_URL)
-public class EquipmentApiController{
+public class EquipmentApiController implements EquipmentsApi {
 
-   private final EquipmentService equipmentService;
-   private final ProjectService projectService;
-   private final EquipmentCategoryService categoryService;
-   private final ModelService modelService;
-   private final EquipmentMapper equipmentMapper;
-   private final ApiResponseBuilder responseBuilder;
-
-
+    private final EquipmentService equipmentService;
+    private final ProjectService projectService;
+    private final EquipmentCategoryService categoryService;
+    private final ModelService modelService;
+    private final EquipmentMapper equipmentMapper;
+    private final ApiResponseBuilder responseBuilder;
+//
 //    @GetMapping
 //    public ResponseEntity<BaseApiResponse<List<EquipmentDto>>> getAllEquipment(
 //            @RequestParam(required = false, defaultValue = "0") Integer page,

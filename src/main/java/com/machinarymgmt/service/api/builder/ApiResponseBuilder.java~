@@ -34,7 +34,11 @@ public class ApiResponseBuilder {
         return response;
     }
 
-
+<<<<<<< HEAD
+    public Object buildErrorApiResponse(String string, ErrorType notFound) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildErrorApiResponse'");
+=======
     // For successful POST operations
     public BaseApiResponse buildCreatedApiResponse(String statusMessage) {
         BaseApiResponse response = new BaseApiResponse()
@@ -156,5 +160,6 @@ public class ApiResponseBuilder {
                 .status(new Status().statusCode(HttpStatus.SERVICE_UNAVAILABLE.value()).statusMessage(statusMessage)
                         .statusMessageKey(Constants.RESPONSE_MESSAGE_KEY_SERVICE_UNAVAILABLE));
         return response;
+>>>>>>> testbranch3
     }
 }

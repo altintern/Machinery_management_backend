@@ -1127,9 +1127,17 @@ components:
           example: 5.25
         remarks:
           type: string
+<<<<<<< HEAD
+        employee:
+          $ref: '#/components/schemas/EmployeeDto'
+        project:
+          $ref: '#/components/schemas/ProjectDto'
+        approver:
+          $ref: '#/components/schemas/EmployeeDto'
+=======
           description: Additional remarks or notes.
 
-
+>>>>>>> testbranch3
     OvertimeReportResponse:
       type: object
       properties:
@@ -1368,3 +1376,6 @@ components:
         
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
+
+
+
