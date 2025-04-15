@@ -533,11 +533,38 @@ components:
         status:
           type: string
         incidentType:
-          $ref: '#/components/schemas/IncidentTypeDto'
+          type: string
         equipment:
           $ref: '#/components/schemas/EquipmentDto'
         project:
           $ref: '#/components/schemas/ProjectDto'
+
+    IncidentReportRequestDto:
+      type: object
+      properties:
+        incidentDate:
+          type: string
+          format: date-time
+        location:
+          type: string
+        description:
+          type: string
+        incidentTypeId:
+          type: integer
+          format: int64
+        equipmentId:
+          type: integer
+          format: int64
+        projectId:
+          type: integer
+          format: int64
+        reportedBy:
+          type: integer
+          format: int64
+        actionTaken:
+          type: string
+        status:
+          type: string
 
     IncidentReportResponse:
       type: object
@@ -554,36 +581,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IncidentReportDto'
-        
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
-
-    IncidentTypeDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-
-    IncidentTypeResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/IncidentTypeDto'
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
-
-    IncidentTypeListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/IncidentTypeDto'
         
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
@@ -1020,6 +1017,15 @@ components:
         makeId:
           type: integer
           format: int64
+
+    ModelRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+        makeId:
+          type: integer
+          format: int64
         description:
           type: string
         make:
@@ -1040,9 +1046,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ModelDto'
-        
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
+      allOf:
+          - $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
     OvertimeReportDto:
       type: object
@@ -1087,7 +1092,6 @@ components:
           $ref: '#/components/schemas/ProjectDto'
         approver:
           $ref: '#/components/schemas/EmployeeDto'
-
     OvertimeReportResponse:
       type: object
       properties:
@@ -1103,8 +1107,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/OvertimeReportDto'
-        
-        baseResponse:
+      allOf:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
     PettyCashTransactionDto:
@@ -1227,37 +1230,7 @@ components:
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
-    StatusEntityDto:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-        name:
-          type: string
-        description:
-          type: string
-        entityType:
-          type: string
-
-    StatusEntityResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/StatusEntityDto'
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
-
-    StatusEntityListResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/StatusEntityDto'
-        
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
+    
 
     StockStatementDto:
       type: object

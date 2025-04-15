@@ -3,6 +3,9 @@ package com.machinarymgmt.service.api.mapper;
 import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.OvertimeReport;
 import com.machinarymgmt.service.dto.OvertimeReportDto;
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
+import com.machinarymgmt.service.dto.OvertimeReportListResponse;
+import com.machinarymgmt.service.dto.OvertimeReportResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -42,5 +45,9 @@ public interface OvertimeReportMapper extends MachinaryMgmtMapper {
     default BigDecimal mapDoubleToDecimal(Double value) {
         return value != null ? BigDecimal.valueOf(value) : null;
     }
+
+    OvertimeReportListResponse toDtoList(BaseApiResponse baseApiResponse);
+    
+    OvertimeReportResponse toOvertimeReportResponse(BaseApiResponse baseApiResponse);
 }
 

@@ -1,6 +1,7 @@
 package com.machinarymgmt.service.api.builder;
 
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
+import com.machinarymgmt.service.api.config.dto.ErrorType;
 import com.machinarymgmt.service.api.config.dto.Metadata;
 import com.machinarymgmt.service.api.config.dto.Status;
 import com.machinarymgmt.service.api.utils.Constants;
@@ -27,5 +28,10 @@ public class ApiResponseBuilder {
                 .status(new Status().statusCode(HttpStatus.OK.value()).statusMessage(statusMessage)
                         .statusMessageKey(Constants.RESPONSE_MESSAGE_KEY_SUCCESS));
         return response;
+    }
+
+    public Object buildErrorApiResponse(String string, ErrorType notFound) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buildErrorApiResponse'");
     }
 }

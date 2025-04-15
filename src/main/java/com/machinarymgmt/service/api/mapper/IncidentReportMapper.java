@@ -1,7 +1,12 @@
 package com.machinarymgmt.service.api.mapper;
 
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.*;
 import com.machinarymgmt.service.dto.IncidentReportDto;
+import com.machinarymgmt.service.dto.IncidentReportListResponse;
+import com.machinarymgmt.service.dto.IncidentReportRequestDto;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -23,6 +28,10 @@ public interface IncidentReportMapper extends MachinaryMgmtMapper {
     List<IncidentReportDto> toDtoList(List<IncidentReport> incidentReports);
 
     IncidentReport toEntity(IncidentReportDto dto);
+    
+    MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
+
+    void updateIncidentReportFromDto(IncidentReportRequestDto dto, @MappingTarget IncidentReport incidentReport);
 
     void updateEntityFromDto(IncidentReportDto dto, @MappingTarget IncidentReport incidentReport);
 
@@ -59,6 +68,9 @@ public interface IncidentReportMapper extends MachinaryMgmtMapper {
         entity.setName(statusName);
         return entity;
     }
+
+    IncidentReportListResponse toDtoList(BaseApiResponse successApiResponse);
+
 }
 
 
