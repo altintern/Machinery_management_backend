@@ -71,16 +71,16 @@ public class EmployeeApiController implements EmployeesApi {
         return ResponseEntity.ok(employeeResponse);
     }
 
-//    @Override
-//    public ResponseEntity<MachinaryMgmtBaseApiResponse> createEmployee(EmployeeDto employeeDto) throws Exception {
-//        Department department = departmentService.findById(employeeDto.getDepartmentId())
-//                .orElseThrow(() -> new Exception("Department not found"));
-//        Designation designation = designationService.findById(employeeDto.getDesignationId())
-//                .orElseThrow(() -> new Exception("Designation not found"));
-//        employeeService.save(employeeMapper.fromDtoWithReferences(employeeDto, designation, department));
-//        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = employeeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("employee added succesfully"));
-//     return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
-//    }
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> createEmployee(EmployeeDto employeeDto) throws Exception {
+        Department department = departmentService.findById(employeeDto.getDepartmentId())
+                .orElseThrow(() -> new Exception("Department not found"));
+        Designation designation = designationService.findById(employeeDto.getDesignationId())
+                .orElseThrow(() -> new Exception("Designation not found"));
+        employeeService.save(employeeMapper.fromDtoWithReferences(employeeDto, designation, department));
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = employeeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("employee added succesfully"));
+     return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+    }
 
 
     @Override

@@ -1,6 +1,4 @@
 // package com.machinarymgmt.service.api.mapper;
-
-<<<<<<< HEAD
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.MastAnchorageDetails;
@@ -16,7 +14,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
-=======
 // import com.machinarymgmt.service.api.data.model.Equipment;
 // import com.machinarymgmt.service.api.data.model.MastAnchorageDetails;
 // import com.machinarymgmt.service.api.data.model.Project;
@@ -25,7 +22,6 @@ import org.mapstruct.ReportingPolicy;
 // import org.mapstruct.Mapping;
 // import org.mapstruct.MappingTarget;
 // import org.mapstruct.ReportingPolicy;
->>>>>>> testbranch2
 
 // import java.util.List;
 
@@ -42,7 +38,6 @@ import org.mapstruct.ReportingPolicy;
 
 //     MastAnchorageDetails toEntity(MastAnchorageDetailsDto dto);
 
-<<<<<<< HEAD
     MastAnchorageDetails toEntity(MastAnchorageDetailsRequestDto dto);
 
     void updateEntityFromDto(MastAnchorageDetailsRequestDto dto, @MappingTarget MastAnchorageDetails details);
@@ -63,7 +58,7 @@ import org.mapstruct.ReportingPolicy;
     }
     MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 }
-=======
+
 //     void updateEntityFromDto(MastAnchorageDetailsDto dto, @MappingTarget MastAnchorageDetails details);
     
 //     default MastAnchorageDetails fromDtoWithReferences(
@@ -76,5 +71,3 @@ import org.mapstruct.ReportingPolicy;
 //         return details;
 //     }
 // }
->>>>>>> testbranch2
-

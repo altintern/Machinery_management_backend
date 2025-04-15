@@ -4,7 +4,6 @@ import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.IncidentReportRepository;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
-import com.machinarymgmt.service.api.data.model.IncidentType;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.IncidentReportDto;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
@@ -48,11 +47,6 @@ public class IncidentReportServiceImpl implements IncidentReportService {
     @Override
     public List<IncidentReport> findByProject(Project project) {
         return incidentReportRepository.findByProject(project);
-    }
-    
-    @Override
-    public List<IncidentReport> findByType(IncidentType type) {
-        return incidentReportRepository.findByType(type);
     }
     
     @Override

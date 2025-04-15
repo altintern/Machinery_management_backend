@@ -1,40 +1,25 @@
 package com.machinarymgmt.service.api.v1;
 import com.machinarymgmt.service.api.IncidentsApi;
 import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
-import com.machinarymgmt.service.api.config.dto.ErrorType;
-import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
-import com.machinarymgmt.service.api.data.model.IncidentType;
-import com.machinarymgmt.service.api.data.model.Project;
-import com.machinarymgmt.service.api.data.model.StatusEntity;
 import com.machinarymgmt.service.dto.IncidentReportDto;
 import com.machinarymgmt.service.dto.IncidentReportListResponse;
 import com.machinarymgmt.service.dto.IncidentReportRequestDto;
 import com.machinarymgmt.service.api.mapper.IncidentReportMapper;
 import com.machinarymgmt.service.api.service.EquipmentService;
 import com.machinarymgmt.service.api.service.IncidentReportService;
-import com.machinarymgmt.service.api.service.IncidentTypeService;
 import com.machinarymgmt.service.api.service.ProjectService;
-import com.machinarymgmt.service.api.service.StatusEntityService;
 import com.machinarymgmt.service.dto.IncidentReportResponse;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
-import com.machinarymgmt.service.dto.StatusEntityDto;
-import com.machinarymgmt.service.dto.StatusEntityResponse;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
@@ -42,57 +27,53 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 @RequiredArgsConstructor
 @RequestMapping(BASE_URL + "/incidents")
 public class IncidentApiController implements IncidentsApi {
-
-   
-
    private final IncidentReportService incidentReportService;
    private final EquipmentService equipmentService;
    private final ProjectService projectService;
-   private final IncidentTypeService incidentTypeService;
-   private final StatusEntityService statusEntityService;
+
    private final IncidentReportMapper incidentReportMapper;
    private final ApiResponseBuilder responseBuilder;
 
-   @Override
-   public ResponseEntity<IncidentReportResponse> createIncident(@Valid IncidentReportDto incidentReportDto) throws Exception {
-      // Validate equipment exists
-      Optional<Equipment> equipmentOpt = equipmentService.findById(incidentReportDto.getEquipmentId());
-      if (equipmentOpt.isEmpty()) {
-         throw new Exception("Equipment not found with id: " + incidentReportDto.getEquipmentId());
-      }
-
-      // Validate project exists
-      Optional<Project> projectOpt = projectService.findById(incidentReportDto.getProjectId());
-      if (projectOpt.isEmpty()) {
-         throw new Exception("Project not found with id: " + incidentReportDto.getProjectId());
-      }
-
-      // Validate incident type exists
-      Optional<IncidentType> typeOpt = incidentTypeService.findById(incidentReportDto.getIncidentTypeId());
-      if (typeOpt.isEmpty()) {
-         throw new Exception("Incident type not found with id: " + incidentReportDto.getIncidentTypeId());
-      }
-
-      // Create incident report with references
-      IncidentReport report = incidentReportMapper.fromDtoWithReferences(
-            incidentReportDto,
-            equipmentOpt.get(),
-            projectOpt.get(),
-            typeOpt.get(),
-            null); // Status will be set by the service layer
-
-      // Save the report
-      IncidentReport savedReport = incidentReportService.save(report);
-
-      // Create response
-      IncidentReportDto savedDto = incidentReportMapper.toDto(savedReport);
-      IncidentReportResponse response = new IncidentReportResponse();
-      MachinaryMgmtBaseApiResponse baseResponse = (MachinaryMgmtBaseApiResponse) responseBuilder.buildSuccessApiResponse("Incident report created successfully");
-      response.setBaseResponse(baseResponse);
-      response.setData(savedDto);
-
-      return new ResponseEntity<>(response, HttpStatus.CREATED);
-   }
+//   @Override
+//   public ResponseEntity<IncidentReportResponse> createIncident(@Valid IncidentReportDto incidentReportDto) throws Exception {
+//      // Validate equipment exists
+//      Optional<Equipment> equipmentOpt = equipmentService.findById(incidentReportDto.getEquipmentId());
+//      if (equipmentOpt.isEmpty()) {
+//         throw new Exception("Equipment not found with id: " + incidentReportDto.getEquipmentId());
+//      }
+//
+//      // Validate project exists
+//      Optional<Project> projectOpt = projectService.findById(incidentReportDto.getProjectId());
+//      if (projectOpt.isEmpty()) {
+//         throw new Exception("Project not found with id: " + incidentReportDto.getProjectId());
+//      }
+//
+//      // Validate incident type exists
+////      Optional<IncidentType> typeOpt = incidentTypeService.findById(incidentReportDto.getIncidentTypeId());
+////      if (typeOpt.isEmpty()) {
+////         throw new Exception("Incident type not found with id: " + incidentReportDto.getIncidentTypeId());
+////      }
+////
+////      // Create incident report with references
+////      IncidentReport report = incidentReportMapper.fromDtoWithReferences(
+////            incidentReportDto,
+////            equipmentOpt.get(),
+////            projectOpt.get(),
+////            typeOpt.get(),
+////            null); // Status will be set by the service layer
+//
+//      // Save the report
+////      IncidentReport savedReport = incidentReportService.save(report);
+//
+//      // Create response
+////      IncidentReportDto savedDto = incidentReportMapper.toDto(savedReport);
+//      IncidentReportResponse response = new IncidentReportResponse();
+//      MachinaryMgmtBaseApiResponse baseResponse = (MachinaryMgmtBaseApiResponse) responseBuilder.buildSuccessApiResponse("Incident report created successfully");
+//      response.setBaseResponse(baseResponse);
+////      response.setData(savedDto);
+//
+//      return new ResponseEntity<>(response, HttpStatus.CREATED);
+//   }
 
   
    

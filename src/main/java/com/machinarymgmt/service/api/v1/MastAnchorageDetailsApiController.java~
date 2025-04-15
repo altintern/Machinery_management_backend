@@ -45,8 +45,6 @@ public class MastAnchorageDetailsApiController implements MastAnchorageApi {
    private final EquipmentService equipmentService;
    private final MastAnchorageDetailsMapper detailsMapper;
    private final ApiResponseBuilder responseBuilder;
-
-
    @Override
    public ResponseEntity<MastAnchorageDetailsListResponse> getAllMastAnchorage() throws Exception {
     // TODO Auto-generated method stub

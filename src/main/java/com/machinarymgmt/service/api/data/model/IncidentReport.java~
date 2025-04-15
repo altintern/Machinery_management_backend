@@ -27,9 +27,10 @@ public class IncidentReport {
     @ManyToOne
     @JoinColumn(name = "ProjectID", nullable = false)
     private Project project;
-
-    @Column(name = "Incident_Type", nullable = false)
-    private String Incidenttype;
+    
+    @ManyToOne
+    @JoinColumn(name = "TypeID", nullable = false)
+    private IncidentType type;
     
     @Column(name = "Incident_Details", nullable = false, columnDefinition = "TEXT")
     private String details;
@@ -45,8 +46,9 @@ public class IncidentReport {
     
     @Column(name = "Closed_date")
     private LocalDate closedDate;
-
-    @Column(name = "Status", nullable = false)
-    private String status;
+    
+    @ManyToOne
+    @JoinColumn(name = "StatusID", nullable = false)
+    private StatusEntity status;
 }
 

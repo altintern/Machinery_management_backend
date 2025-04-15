@@ -15,6 +15,7 @@ import java.util.List;
 public interface IncidentReportRepository extends JpaRepository<IncidentReport, Long> {
     List<IncidentReport> findByEquipment(Equipment equipment);
     List<IncidentReport> findByProject(Project project);
+    List<IncidentReport> findByType(IncidentType type);
     Page<IncidentReport> findByIncidentDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
 }
 

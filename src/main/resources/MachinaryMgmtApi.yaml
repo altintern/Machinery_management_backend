@@ -1502,7 +1502,7 @@ paths:
               $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/DepartmentRequestDto'
       responses:
         '200':
-          description: Dpartment record updated successfully
+          description: Department record updated successfully
           content:
             application/json:
               schema:

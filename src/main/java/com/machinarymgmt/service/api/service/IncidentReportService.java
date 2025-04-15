@@ -3,7 +3,6 @@ package com.machinarymgmt.service.api.service;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.IncidentReport;
-import com.machinarymgmt.service.api.data.model.IncidentType;
 import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.IncidentReportDto;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
@@ -21,7 +20,6 @@ public interface IncidentReportService {
     Optional<IncidentReport> findById(Long id);
     List<IncidentReport> findByEquipment(Equipment equipment);
     List<IncidentReport> findByProject(Project project);
-    List<IncidentReport> findByType(IncidentType type);
     Page<IncidentReport> findByIncidentDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
     IncidentReport save(IncidentReport incidentReport);
     void deleteById(Long id);

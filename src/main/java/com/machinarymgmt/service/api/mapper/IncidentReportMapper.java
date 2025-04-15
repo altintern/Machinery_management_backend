@@ -8,7 +8,6 @@ import com.machinarymgmt.service.dto.IncidentReportRequestDto;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
@@ -19,7 +18,7 @@ import java.util.List;
 @Mapper(
         componentModel = "spring",
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        uses = {EquipmentMapper.class, ProjectMapper.class, IncidentTypeMapper.class}
+        uses = {EquipmentMapper.class, ProjectMapper.class}
 )
 public interface IncidentReportMapper extends MachinaryMgmtMapper {
 
@@ -38,14 +37,10 @@ public interface IncidentReportMapper extends MachinaryMgmtMapper {
     default IncidentReport fromDtoWithReferences(
             IncidentReportDto dto,
             Equipment equipment,
-            Project project,
-            IncidentType type,
-            StatusEntity status) {
+            Project project) {
         IncidentReport incidentReport = toEntity(dto);
         incidentReport.setEquipment(equipment);
         incidentReport.setProject(project);
-        incidentReport.setType(type);
-        incidentReport.setStatus(status);
         return incidentReport;
     }
 
@@ -58,16 +53,16 @@ public interface IncidentReportMapper extends MachinaryMgmtMapper {
         return dateTime != null ? dateTime.toLocalDate() : null;
     }
 
-    default String map(StatusEntity status) {
-        return status != null ? status.getName() : null;
-    }
-
-    default StatusEntity map(String statusName) {
-        if (statusName == null) return null;
-        StatusEntity entity = new StatusEntity();
-        entity.setName(statusName);
-        return entity;
-    }
+//    default String map(StatusEntity status) {
+//        return status != null ? status.getName() : null;
+//    }
+//
+//    default StatusEntity map(String statusName) {
+//        if (statusName == null) return null;
+//        StatusEntity entity = new StatusEntity();
+//        entity.setName(statusName);
+//        return entity;
+//    }
 
     IncidentReportListResponse toDtoList(BaseApiResponse successApiResponse);
 

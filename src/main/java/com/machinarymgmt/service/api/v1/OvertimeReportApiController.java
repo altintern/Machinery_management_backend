@@ -88,31 +88,31 @@ public class OvertimeReportApiController implements OvertimeReportApi {
       return ResponseEntity.ok(response);
    }
 
-   @Override
-   public ResponseEntity<OvertimeReportResponse> createOvertimeReport(@Valid OvertimeReportDto overtimeReportDto)
-         throws Exception {
-      // Validate employee exists
-      Optional<Employee> employeeOpt = employeeService.findById(overtimeReportDto.getEmployeeId());
-      if (employeeOpt.isEmpty()) {
-         throw new Exception("Employee not found with id: " + overtimeReportDto.getEmployeeId());
-      }
-
-      // Create overtime report with references
-      OvertimeReport report = overtimeReportMapper.fromDtoWithReferences(
-            overtimeReportDto,
-            employeeOpt.get());
-
-      // Save the report
-      OvertimeReport savedReport = overtimeReportService.save(report);
-
-      // Create response
-      OvertimeReportDto savedDto = overtimeReportMapper.toDto(savedReport);
-      OvertimeReportResponse response = overtimeReportMapper.toOvertimeReportResponse(
-            responseBuilder.buildSuccessApiResponse("Overtime report created successfully"));
-      response.setData(savedDto);
-
-      return new ResponseEntity<>(response, HttpStatus.CREATED);
-   }
+//   @Override
+//   public ResponseEntity<OvertimeReportResponse> createOvertimeReport(@Valid OvertimeReportDto overtimeReportDto)
+//         throws Exception {
+//      // Validate employee exists
+//      Optional<Employee> employeeOpt = employeeService.findById(overtimeReportDto.getEmployeeId());
+//      if (employeeOpt.isEmpty()) {
+//         throw new Exception("Employee not found with id: " + overtimeReportDto.getEmployeeId());
+//      }
+//
+//      // Create overtime report with references
+//      OvertimeReport report = overtimeReportMapper.fromDtoWithReferences(
+//            overtimeReportDto,
+//            employeeOpt.get());
+//
+//      // Save the report
+//      OvertimeReport savedReport = overtimeReportService.save(report);
+//
+//      // Create response
+//      OvertimeReportDto savedDto = overtimeReportMapper.toDto(savedReport);
+//      OvertimeReportResponse response = overtimeReportMapper.toOvertimeReportResponse(
+//            responseBuilder.buildSuccessApiResponse("Overtime report created successfully"));
+//      response.setData(savedDto);
+//
+//      return new ResponseEntity<>(response, HttpStatus.CREATED);
+//   }
 
    @Override
    public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteOvertimeReport(Long id) throws Exception {
