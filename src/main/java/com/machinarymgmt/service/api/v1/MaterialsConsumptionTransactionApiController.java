@@ -1,45 +1,114 @@
-//package com.machinarymgmt.service.api.v1;
-//
-//import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
-//import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
-//import com.machinarymgmt.service.api.config.dto.ErrorType;
-//import com.machinarymgmt.service.api.data.model.Equipment;
-//import com.machinarymgmt.service.api.data.model.Item;
-//import com.machinarymgmt.service.api.data.model.MaterialsConsumptionTransaction;
-//import com.machinarymgmt.service.api.data.model.Project;
+package com.machinarymgmt.service.api.v1;
+
+import com.machinarymgmt.service.api.MaterialsConsumptionApi;
+import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
+import com.machinarymgmt.service.api.config.dto.ErrorType;
+import com.machinarymgmt.service.api.data.model.*;
 //import com.machinarymgmt.service.api.dto.MaterialsConsumptionTransactionDto;
 //import com.machinarymgmt.service.api.mapper.MaterialsConsumptionTransactionMapper;
-//import com.machinarymgmt.service.api.service.EquipmentService;
-//import com.machinarymgmt.service.api.service.ItemService;
+import com.machinarymgmt.service.api.mapper.MaterialsConsumptionTransactionMapper;
+import com.machinarymgmt.service.api.service.EquipmentService;
+import com.machinarymgmt.service.api.service.ItemService;
 //import com.machinarymgmt.service.api.service.MaterialsConsumptionTransactionService;
-//import com.machinarymgmt.service.api.service.ProjectService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.format.annotation.DateTimeFormat;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import jakarta.validation.Valid;
-//import java.time.LocalDate;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping(BASE_URL + "/materials-consumption")
-//public class MaterialsConsumptionTransactionApiController {
-//
-//    private final MaterialsConsumptionTransactionService transactionService;
-//    private final ProjectService projectService;
-//    private final EquipmentService equipmentService;
-//    private final ItemService itemService;
-//    private final MaterialsConsumptionTransactionMapper transactionMapper;
-//    private final ApiResponseBuilder responseBuilder;
-//
+import com.machinarymgmt.service.api.service.MaterialsConsumptionTransactionService;
+import com.machinarymgmt.service.api.service.ProjectService;
+import com.machinarymgmt.service.dto.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(BASE_URL + "/materials-consumption")
+public class MaterialsConsumptionTransactionApiController implements MaterialsConsumptionApi {
+
+    private final MaterialsConsumptionTransactionService transactionService;
+    private final ProjectService projectService;
+    private final EquipmentService equipmentService;
+    private final ItemService itemService;
+    private final MaterialsConsumptionTransactionMapper transactionMapper;
+    private final ApiResponseBuilder responseBuilder;
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> createMaterialsConsumptionTransaction(MaterialsConsumptionTransactionRequest materialsConsumptionTransactionRequest) throws Exception {
+        Project project = projectService.findById(materialsConsumptionTransactionRequest.getProjectId())
+                .orElseThrow(() -> new Exception("Project not found"));
+        Equipment equipment = equipmentService.findById(materialsConsumptionTransactionRequest.getEquipmentId())
+                .orElseThrow(() -> new RuntimeException("Equipment not found"));
+        Item item = itemService.findById(materialsConsumptionTransactionRequest.getItemId())
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+        MaterialsConsumptionTransaction materialsConsumptionTransaction = transactionMapper.fromDtoWithReferences(materialsConsumptionTransactionRequest,project,equipment,item);
+        materialsConsumptionTransaction.setCreatedAt(LocalDateTime.now());
+        transactionService.save(materialsConsumptionTransaction);
+        return ResponseEntity.ok(transactionMapper.toDtoResponse(responseBuilder.buildSuccessApiResponse("material consumption transation created successfully")));
+    }
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMaterialsConsumptionTransaction(Long id) throws Exception {
+        transactionService.deleteById(id);
+        return ResponseEntity.ok(transactionMapper.toDtoResponse(responseBuilder.buildSuccessApiResponse("deleted successfully")));
+    }
+
+    @Override
+    public ResponseEntity<MaterialsConsumptionTransactionListResponse> getAllMaterialsConsumptionTransactions() throws Exception {
+        List<MaterialsConsumptionTransactionDto> transactionDtos = transactionMapper.toDtoList(transactionService.findAll());
+        MaterialsConsumptionTransactionListResponse materialsConsumptionTransactionListResponse = transactionMapper.toListResponse(responseBuilder.buildSuccessApiResponse("listed all transactions succefully"));
+        return ResponseEntity.ok(materialsConsumptionTransactionListResponse);
+    }
+
+    @Override
+    public ResponseEntity<MaterialsConsumptionTransactionResponse> getMaterialsConsumptionTransactionById(Long id) throws Exception {
+        MaterialsConsumptionTransactionDto materialsConsumptionTransactionDto = transactionMapper.toDto(transactionService.findById(id).orElseThrow(() -> new RuntimeException("Does not exists")));
+        MaterialsConsumptionTransactionResponse consumptionTransactionResponse = transactionMapper.toResponse(responseBuilder.buildSuccessApiResponse("fetched the material consumption data succesfully"));
+        consumptionTransactionResponse.setData(materialsConsumptionTransactionDto);
+        System.out.println(materialsConsumptionTransactionDto);
+        return ResponseEntity.ok(consumptionTransactionResponse);
+    }
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMaterialsConsumptionTransaction(Long id, MaterialsConsumptionTransactionRequest materialsConsumptionTransactionRequest) throws Exception {
+        MaterialsConsumptionTransaction existingTransaction = transactionService.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+        transactionMapper.updateEntityFromDto(materialsConsumptionTransactionRequest, existingTransaction);
+
+        Project project = projectService.findById(materialsConsumptionTransactionRequest.getProjectId())
+                .orElseThrow(() -> new Exception("Project not found"));
+        Equipment equipment = equipmentService.findById(materialsConsumptionTransactionRequest.getEquipmentId())
+                .orElseThrow(() -> new RuntimeException("Equipment not found"));
+        Item item = itemService.findById(materialsConsumptionTransactionRequest.getItemId())
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        // Set those entities in the transaction
+        existingTransaction.setProject(project);
+        existingTransaction.setItem(item);
+        existingTransaction.setEquipment(equipment);
+
+        MaterialsConsumptionTransaction updatedTransaction = transactionService.save(existingTransaction);
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = transactionMapper.toResponse(responseBuilder.buildSuccessApiResponse("updated succesfully"));
+        return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+    }
+
+//    @Override
+//    public ResponseEntity<MaterialsConsumptionTransactionResponse> updateMaterialsConsumptionTransaction(Long id, MaterialsConsumptionTransactionRequest materialsConsumptionTransactionRequest) throws Exception {
+//        MaterialsConsumptionTransaction existingTransaction = transactionService.findById(id).orElseThrow(() -> new RuntimeException("Not Found"));
+//        transactionMapper.updateEntityFromDto(materialsConsumptionTransactionRequest, existingTransaction);
+//        MaterialsConsumptionTransaction updatedTransaction = transactionService.save(existingTransaction);
+//        MaterialsConsumptionTransactionResponse materialsConsumptionTransactionResponse = transactionMapper.toResponse(responseBuilder.buildSuccessApiResponse("updated succesfully"));
+//        return ResponseEntity.ok(materialsConsumptionTransactionResponse);
+//    }
+
 //    @GetMapping
 //    public ResponseEntity<BaseApiResponse<List<MaterialsConsumptionTransactionDto>>> getAllTransactions(
 //            @RequestParam(required = false, defaultValue = "0") Integer page,
@@ -161,5 +230,5 @@
 //        transactionService.deleteById(id);
 //        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(null, "Materials consumption transaction deleted successfully"));
 //    }
-//}
-//
+}
+

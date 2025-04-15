@@ -1,6 +1,8 @@
 package com.machinarymgmt.service.api.v1;
 
+import com.machinarymgmt.service.api.EquipmentsApi;
 import com.machinarymgmt.service.api.MakesApi;
+import com.machinarymgmt.service.api.OvertimeReportApi;
 import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.config.dto.ErrorType;
@@ -9,6 +11,7 @@ import com.machinarymgmt.service.api.mapper.MakeMapper;
 import com.machinarymgmt.service.api.service.MakeService;
 import com.machinarymgmt.service.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,20 +23,61 @@ import static com.machinarymgmt.service.api.utils.Constants.MAKE_URL;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(MAKE_URL)
-public class MakeApiController implements MakesApi {
+public class MakeApiController implements MakesApi{
 
     private final MakeService makeService;
     private final MakeMapper makeMapper;
     private final ApiResponseBuilder responseBuilder;
 
     @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> createMake(MakeRequestDto makeRequestDto) throws Exception {
+        Make make = makeMapper.toEntity(makeRequestDto);
+        Make savedMake = makeService.save(make);
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse =
+                makeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Make api created Succesfully"));
+        return new ResponseEntity<>(machinaryMgmtBaseApiResponse, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMake(Long id) throws Exception {
+        makeService.deleteById(id);
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse =
+                makeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Make api deleted Succesfully"));
+        return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+    }
+
+    @Override
     public ResponseEntity<MakeListResponse> getAllMakes() throws Exception {
         List<MakeDto> makes = makeService.findAllDto();
-        MakeListResponse mi = makeMapper.toDtoList(responseBuilder.buildSuccessApiResponse("All makes are retrieved successfully"));
-        mi.data(makes);
-        System.out.println(mi);
-        return ResponseEntity.ok(mi);
+        MakeListResponse makeListResponse = makeMapper.toDtoList(responseBuilder.buildSuccessApiResponse("All makes are retrieved successfully"));
+        makeListResponse.setData(makes);
+        return ResponseEntity.ok(makeListResponse);
     }
+
+    @Override
+    public ResponseEntity<MakeResponse> getMakeById(Long id) throws Exception {
+        MakeDto makeDto = makeMapper.toDto(makeService.findById(id).orElseThrow(() -> new Exception("Project not found")));
+        MakeResponse makeResponse = makeMapper.toMakeApiResponse(responseBuilder.buildSuccessApiResponse("Model retrieved succesfully"));
+        makeResponse.setData(makeDto);
+        return ResponseEntity.ok(makeResponse);
+    }
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMake(Long id, MakeRequestDto makeRequestDto) throws Exception {
+        Make existingMake = makeService.findById(id).orElseThrow(() -> new Exception("Make not found"));
+        makeMapper.updateMakeFromDto(makeRequestDto, existingMake);
+        Make updatedMake = makeService.save(existingMake);  //Optional if you want to return the updated make
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = makeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Make API updated successfully"));
+        return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+    }
+
+//    @Override
+//    public ResponseEntity<MakeResponse> updateMake(Long id, MakeRequestDto makeRequestDto) throws Exception {
+//        Make existingMake = makeService.findById(id).orElseThrow(() -> new Exception("Make not found"));
+//        Make make = makeMapper.toEntity(makeRequestDto);
+//        Make updatedMake = makeService.save(existingMake);
+//        return ResponseEntity.ok();
+//    }
 
 
 //    @GetMapping

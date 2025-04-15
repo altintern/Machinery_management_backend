@@ -69,12 +69,6 @@ public class ModelServiceImpl implements ModelService {
     public Optional<ModelDto> findDtoById(Long id) {
         return findById(id).map(modelMapper::toDto);
     }
-    
-    @Override
-    public List<ModelDto> findDtoByMakeId(Long makeId) {
-        return makeService.findById(makeId)
-                .map(make -> modelMapper.toDtoList(findByMake(make)))
-                .orElse(Collections.emptyList());
-    }
+
 }
 

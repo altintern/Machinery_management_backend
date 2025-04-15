@@ -8,6 +8,8 @@ import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.EquipmentCategory;
 import com.machinarymgmt.service.api.data.model.Model;
 import com.machinarymgmt.service.api.data.model.Project;
+import com.machinarymgmt.service.api.dto.EquipmentDto;
+import com.machinarymgmt.service.api.dto.EquipmentRequestDto;
 import com.machinarymgmt.service.api.mapper.EquipmentMapper;
 import com.machinarymgmt.service.api.service.EquipmentCategoryService;
 import com.machinarymgmt.service.api.service.EquipmentService;

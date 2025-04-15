@@ -1,40 +1,57 @@
-//package com.machinarymgmt.service.api.v1;
-//
-//import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
-//import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
-//import com.machinarymgmt.service.api.config.dto.ErrorType;
-//import com.machinarymgmt.service.api.data.model.Department;
-//import com.machinarymgmt.service.api.data.model.Designation;
-//import com.machinarymgmt.service.api.data.model.Employee;
-//import com.machinarymgmt.service.api.dto.EmployeeDto;
-//import com.machinarymgmt.service.api.mapper.EmployeeMapper;
-//import com.machinarymgmt.service.api.service.DepartmentService;
-//import com.machinarymgmt.service.api.service.DesignationService;
-//import com.machinarymgmt.service.api.service.EmployeeService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.*;
-//
-//import jakarta.validation.Valid;
-//import java.util.List;
-//import java.util.Optional;
-//import java.util.stream.Collectors;
-//
-//import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping(BASE_URL + "/employees")
-//public class EmployeeApiController {
-//
-//    private final EmployeeService employeeService;
-//    private final DepartmentService departmentService;
-//    private final DesignationService designationService;
-//    private final EmployeeMapper employeeMapper;
-//    private final ApiResponseBuilder responseBuilder;
-//
+package com.machinarymgmt.service.api.v1;
+
+import com.machinarymgmt.service.api.EmployeesApi;
+import com.machinarymgmt.service.api.builder.ApiResponseBuilder;
+import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
+import com.machinarymgmt.service.api.config.dto.ErrorType;
+import com.machinarymgmt.service.api.data.model.Department;
+import com.machinarymgmt.service.api.data.model.Designation;
+import com.machinarymgmt.service.api.data.model.Employee;
+import com.machinarymgmt.service.api.mapper.EmployeeMapper;
+import com.machinarymgmt.service.api.service.DepartmentService;
+import com.machinarymgmt.service.api.service.DesignationService;
+import com.machinarymgmt.service.api.service.EmployeeService;
+import com.machinarymgmt.service.dto.EmployeeDto;
+//import com.machinarymgmt.service.dto.EmployeeRequestDto;
+import com.machinarymgmt.service.dto.EmployeeResponse;
+import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(BASE_URL + "/employees")
+public class EmployeeApiController implements EmployeesApi {
+
+    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
+    private final DesignationService designationService;
+    private final EmployeeMapper employeeMapper;
+    private final ApiResponseBuilder responseBuilder;
+
+
+    @Override
+    public ResponseEntity<MachinaryMgmtBaseApiResponse> createEmployee(EmployeeDto employeeDto) throws Exception {
+        Department department = departmentService.findById(employeeDto.getDepartmentId())
+                .orElseThrow(() -> new Exception("Department not found"));
+        Designation designation = designationService.findById(employeeDto.getDesignationId())
+                .orElseThrow(() -> new Exception("Designation not found"));
+        employeeService.save(employeeMapper.fromDtoWithReferences(employeeDto, designation, department));
+        MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = employeeMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("employee added succesfully"));
+     return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+    }
+
+
 //    @GetMapping
 //    public ResponseEntity<BaseApiResponse<List<EmployeeDto>>> getAllEmployees(
 //            @RequestParam(required = false, defaultValue = "0") Integer page,
@@ -128,5 +145,5 @@
 //        employeeService.deleteById(id);
 //        return ResponseEntity.ok(responseBuilder.buildSuccessResponse(null, "Employee deleted successfully"));
 //    }
-//}
-//
+}
+
