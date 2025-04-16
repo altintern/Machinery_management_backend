@@ -54,7 +54,7 @@ public class EmployeeApiController implements EmployeesApi {
     private final ApiResponseBuilder responseBuilder;
 
     @Override
-    public ResponseEntity<EmployeeListResponse> getAllEmployees(@Valid Integer page, @Valid Integer size) throws Exception {
+    public ResponseEntity<EmployeeListResponse> getAllEmployees() throws Exception {
         // TODO Auto-generated method stub
         List<EmployeeDto> employeeDtosList =employeeMapper.toDtoList(employeeService.findAll());
         EmployeeListResponse employeeListResponse= employeeMapper.toEmployeeListResponse(responseBuilder.buildSuccessApiResponse("Employee build successfully"));

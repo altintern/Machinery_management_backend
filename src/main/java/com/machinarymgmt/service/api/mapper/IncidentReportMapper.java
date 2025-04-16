@@ -1,5 +1,5 @@
 package com.machinarymgmt.service.api.mapper;
-
+//updated
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.*;
 import com.machinarymgmt.service.dto.IncidentReportDto;
@@ -26,16 +26,16 @@ public interface IncidentReportMapper extends MachinaryMgmtMapper {
 
     List<IncidentReportDto> toDtoList(List<IncidentReport> incidentReports);
 
-    IncidentReport toEntity(IncidentReportDto dto);
+    IncidentReport toEntity(IncidentReportRequestDto dto);
     
     MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 
     void updateIncidentReportFromDto(IncidentReportRequestDto dto, @MappingTarget IncidentReport incidentReport);
 
-    void updateEntityFromDto(IncidentReportDto dto, @MappingTarget IncidentReport incidentReport);
+    void updateEntityFromDto(IncidentReportRequestDto dto, @MappingTarget IncidentReport incidentReport);
 
     default IncidentReport fromDtoWithReferences(
-            IncidentReportDto dto,
+            IncidentReportRequestDto dto,
             Equipment equipment,
             Project project) {
         IncidentReport incidentReport = toEntity(dto);

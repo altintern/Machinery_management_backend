@@ -48,7 +48,7 @@ public class MaintenanceController implements MaintenanceApi {
    private final EquipmentService equipmentService;
    private final ApiResponseBuilder responseBuilder;
    @Override
-   public ResponseEntity<MaintenanceLogListResponse> getAllMaintenanceLogs(@Valid Integer page, @Valid Integer size)
+   public ResponseEntity<MaintenanceLogListResponse> getAllMaintenanceLogs()
         throws Exception {
     // TODO Auto-generated method stub
     List<MaintenanceLogDto> maintenanceLogDtosList=  maintenanceLogMapper.toDtoList(maintenanceLogService.findAll());

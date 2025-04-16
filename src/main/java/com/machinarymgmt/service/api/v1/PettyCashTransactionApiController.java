@@ -19,6 +19,7 @@ import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.ModelDto;
 import com.machinarymgmt.service.dto.ModelResponse;
 import com.machinarymgmt.service.dto.PettyCashTransactionDto;
+import com.machinarymgmt.service.dto.PettyCashTransactionRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -71,15 +72,15 @@ public class PettyCashTransactionApiController implements PettyCashApi {
    }
    @Override
    public ResponseEntity<PettyCashTransactionResponse> createPettyCash(
-         @Valid PettyCashTransactionDto pettyCashTransactionDto) throws Exception {
+         @Valid PettyCashTransactionRequestDto pettyCashTransactionRequestDto) throws Exception {
       // Validate project exists
-      Optional<Project> projectOpt = projectService.findById(pettyCashTransactionDto.getProjectId());
+      Optional<Project> projectOpt = projectService.findById(pettyCashTransactionRequestDto.getProjectId());
       if (projectOpt.isEmpty()) {
-         throw new Exception("Project not found with id: " + pettyCashTransactionDto.getProjectId());
+         throw new Exception("Project not found with id: " + pettyCashTransactionRequestDto.getProjectId());
       }
 
       // Create transaction with project reference
-      PettyCashTransaction transaction = transactionMapper.toEntity(pettyCashTransactionDto);
+      PettyCashTransaction transaction = transactionMapper.toEntity(pettyCashTransactionRequestDto);
       transaction.setProject(projectOpt.get());
 
       // Save the transaction
@@ -94,16 +95,16 @@ public class PettyCashTransactionApiController implements PettyCashApi {
    }
    @Override
    public ResponseEntity<PettyCashTransactionResponse> updatePettyCash(Long id,
-         @Valid PettyCashTransactionDto pettyCashTransactionDto) throws Exception {
+         @Valid PettyCashTransactionRequestDto pettyCashTransactionRequestDto) throws Exception {
       // Check if transaction exists
       if (!transactionService.existsById(id)) {
          throw new Exception("Petty cash transaction not found with id: " + id);
       }
 
       // Validate project exists
-      Optional<Project> projectOpt = projectService.findById(pettyCashTransactionDto.getProjectId());
+      Optional<Project> projectOpt = projectService.findById(pettyCashTransactionRequestDto.getProjectId());
       if (projectOpt.isEmpty()) {
-         throw new Exception("Project not found with id: " + pettyCashTransactionDto.getProjectId());
+         throw new Exception("Project not found with id: " + pettyCashTransactionRequestDto.getProjectId());
       }
 
       // Get existing transaction
@@ -111,7 +112,7 @@ public class PettyCashTransactionApiController implements PettyCashApi {
             .orElseThrow(() -> new Exception("Petty cash transaction not found with id: " + id));
 
       // Update transaction with new data
-      transactionMapper.updateEntityFromDto(pettyCashTransactionDto, existingTransaction);
+      transactionMapper.updateEntityFromDto(pettyCashTransactionRequestDto, existingTransaction);
       existingTransaction.setProject(projectOpt.get());
 
       // Save the updated transaction

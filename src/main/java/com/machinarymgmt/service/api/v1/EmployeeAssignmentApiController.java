@@ -57,8 +57,7 @@ public class EmployeeAssignmentApiController implements EmployeesAssignmentApi{
    private final EmployeeMapper employeeMapper;
 
    @Override
-   public ResponseEntity<EmployeeAssignmentListResponse> getAllEmployeesAssignments(@Valid Integer page,
-           @Valid Integer size) throws Exception {
+   public ResponseEntity<EmployeeAssignmentListResponse> getAllEmployeesAssignments() throws Exception {
        // TODO Auto-generated method stub
        List<EmployeeAssignmentDto> employeeAssignmentDtosList =assignmentMapper.toDtoList(assignmentService.findAll());
        EmployeeAssignmentListResponse employeeAssignmentListResponse= assignmentMapper.toEmployeeAssignmentListResponse(responseBuilder.buildSuccessApiResponse("Employee Assignment build successfully"));

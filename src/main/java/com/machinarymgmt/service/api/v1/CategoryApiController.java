@@ -11,7 +11,8 @@ import com.machinarymgmt.service.dto.EquipmentCategoryDto;
 import com.machinarymgmt.service.dto.EquipmentCategoryListResponse;
 import com.machinarymgmt.service.dto.EquipmentCategoryResponse;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
-
+import com.machinarymgmt.service.api.utils.Constants;
+import com.machinarymgmt.service.dto.EquipmentCategoryRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -56,20 +57,20 @@ public class CategoryApiController implements CategoriesApi{
  return ResponseEntity.ok(response);
    }
    @Override
-   public ResponseEntity<EquipmentCategoryResponse> createCategory(@Valid EquipmentCategoryDto equipmentCategoryDto)
+   public ResponseEntity<EquipmentCategoryResponse> createCategory(@Valid EquipmentCategoryRequestDto equipmentCategoryRequestDto)
          throws Exception {
       // Check if category name is provided
-      if (equipmentCategoryDto.getName() == null || equipmentCategoryDto.getName().trim().isEmpty()) {
+      if (equipmentCategoryRequestDto.getName() == null || equipmentCategoryRequestDto.getName().trim().isEmpty()) {
          throw new Exception("Category name is required");
       }
 
       // Check if category with same name already exists
-      if (categoryService.existsByName(equipmentCategoryDto.getName())) {
-         throw new Exception("Category already exists with name: " + equipmentCategoryDto.getName());
+      if (categoryService.existsByName(equipmentCategoryRequestDto.getName())) {
+         throw new Exception("Category already exists with name: " + equipmentCategoryRequestDto.getName());
       }
 
       // Convert DTO to entity
-      EquipmentCategory category = categoryMapper.toEntity(equipmentCategoryDto);
+      EquipmentCategory category = categoryMapper.toEntity(equipmentCategoryRequestDto);
       
       // Save the category
       EquipmentCategory savedCategory = categoryService.save(category);

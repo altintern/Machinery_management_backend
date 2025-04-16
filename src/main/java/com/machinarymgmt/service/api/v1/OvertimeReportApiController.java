@@ -142,9 +142,9 @@ public class OvertimeReportApiController implements OvertimeReportApi {
         OvertimeReport existingReport = overtimeReportService.findById(id)
                 .orElseThrow(() -> new RuntimeException("Overtime Report not found with id: " + id));
 
-        Optional<Employee> employeeOpt = employeeService.findById(overtimeReportRequestDto.getEmployee().getId());
+        Optional<Employee> employeeOpt = employeeService.findById(overtimeReportRequestDto.getEmployeeId());
         if (employeeOpt.isEmpty()) {
-            throw new RuntimeException("Employee not found with id: " + overtimeReportRequestDto.getEmployee().getId());
+            throw new RuntimeException("Employee not found with id: " + overtimeReportRequestDto.getEmployeeId());
         }
 
         overtimeReportMapper.updateEntityFromDto(overtimeReportRequestDto, existingReport);

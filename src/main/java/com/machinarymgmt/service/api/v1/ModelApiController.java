@@ -96,9 +96,9 @@ public class ModelApiController implements ModelsApi {
       }
 
       // Validate make exists
-      Optional<Make> makeOpt = makeService.findById(modelDto.getMakeId());
+      Optional<Make> makeOpt = makeService.findById(modelDto.getMake().getId());
       if (makeOpt.isEmpty()) {
-         throw new Exception("Make not found with id: " + modelDto.getMakeId());
+         throw new Exception("Make not found with id: " + modelDto.getMake().getId());
       }
 
       // Get existing model
@@ -107,7 +107,7 @@ public class ModelApiController implements ModelsApi {
 
       // Check for duplicate model name within the same make
       if (!existingModel.getName().equals(modelDto.getName()) || 
-            !existingModel.getMake().getId().equals(modelDto.getMakeId())) {
+            !existingModel.getMake().getId().equals(modelDto.getMake().getId())) {
          if (modelService.existsByNameAndMake(modelDto.getName(), makeOpt.get())) {
             throw new Exception("Model already exists with name: " + modelDto.getName() + " for this make");
          }

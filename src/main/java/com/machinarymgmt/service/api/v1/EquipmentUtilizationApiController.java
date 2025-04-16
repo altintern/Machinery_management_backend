@@ -51,8 +51,7 @@ public class EquipmentUtilizationApiController implements EquipmentsUtilizationA
    private final EquipmentUtilizationMapper utilizationMapper;
    private final ApiResponseBuilder responseBuilder;
    @Override
-   public ResponseEntity<EquipmentUtilizationListResponse> getAllEquipmentUtilization(@Valid Integer page,
-        @Valid Integer size) throws Exception {
+   public ResponseEntity<EquipmentUtilizationListResponse> getAllEquipmentUtilization() throws Exception {
     // TODO Auto-generated method stub
     List<EquipmentUtilizationDto> equipmentUtilizationDtosList= utilizationMapper.toDtoList(utilizationService.findAll());
     EquipmentUtilizationListResponse equipmentUtilizationListResponse= utilizationMapper.toEquipmentUtilizationListResponse(responseBuilder.buildSuccessApiResponse("Equipment Utilization build successfully"));

@@ -25,12 +25,12 @@ import java.util.List;
 )
 public interface StockStatementMapper extends MachinaryMgmtMapper {
 
-    @Mapping(source = "item.id", target = "itemId")
-    @Mapping(source = "item.code", target = "itemName")
-    @Mapping(source = "project.id", target = "projectId")
-    @Mapping(source = "project.name", target = "projectName")
-    @Mapping(source = "equipment.id", target="equipmentId")
-    @Mapping(source = "equipment.name", target="equipmentName")
+    // @Mapping(source = "item.id", target = "itemId")
+    // @Mapping(source = "item.name", target = "itemName")
+    // @Mapping(source = "project.id", target = "projectId")
+    // @Mapping(source = "project.name", target = "projectName")
+    // @Mapping(source = "equipment.id", target = "equipmentId")
+    // @Mapping(source = "equipment.name", target = "equipmentName")
 
 
     StockStatementDto toDto(StockStatement stockStatement);

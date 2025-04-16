@@ -61,8 +61,7 @@ private EquipmentCategoryService equipmentCategoryService;
 private ProjectService projectService;
 
    @Override
-   public ResponseEntity<EquipmentListResponse> getAllEquipment(@Valid Integer page, @Valid Integer size)
-        throws Exception {
+   public ResponseEntity<EquipmentListResponse> getAllEquipment()throws Exception {
     // TODO Auto-generated method stub
     List<EquipmentDto> equipmentDtosList = equipmentMapper.toDtoList(equipmentService.findAll());
     EquipmentListResponse equipmentListResponse= equipmentMapper.toEquipmentListResponse(responseBuilder.buildSuccessApiResponse("Equipment build successfully"));

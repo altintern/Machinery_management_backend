@@ -5,11 +5,14 @@ import com.machinarymgmt.service.api.data.model.Item;
 import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
 import com.machinarymgmt.service.api.data.model.MaintenancePartsUsed;
 import com.machinarymgmt.service.dto.MaintenancePartUsedListResponse;
+import com.machinarymgmt.service.dto.MaintenancePartUsedRequestDto;
 import com.machinarymgmt.service.dto.MaintenancePartUsedResponse;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
+import com.machinarymgmt.service.dto.MaintenanceLogRequestDto;
 import com.machinarymgmt.service.dto.MaintenancePartUsedDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 
 import java.math.BigDecimal;
@@ -26,16 +29,18 @@ public interface MaintenancePartUsedMapper extends MachinaryMgmtMapper {
     
     List<MaintenancePartUsedDto> toDtoList(List<MaintenancePartsUsed> partsUsed);
 
-    MaintenancePartsUsed toEntity(MaintenancePartUsedDto dto);
+    MaintenancePartsUsed toEntity(MaintenancePartUsedRequestDto dto);
 
     MaintenancePartUsedListResponse toMaintenancePartUsedListResponse(BaseApiResponse baseApiResponse);
 
     MaintenancePartUsedResponse toMaintenancePartUsedResponse(BaseApiResponse baseApiResponse);
 
     MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
+
+    void updateEntityFromDto(MaintenancePartUsedRequestDto dto, @MappingTarget MachineryMaintenanceLog log);
     
     default MaintenancePartsUsed fromDtoWithReferences(
-            MaintenancePartUsedDto dto,
+            MaintenancePartUsedRequestDto dto,
             MachineryMaintenanceLog log,
             Item item) {
         MaintenancePartsUsed partsUsed = toEntity(dto);

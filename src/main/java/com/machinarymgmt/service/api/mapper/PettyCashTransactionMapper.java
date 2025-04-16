@@ -8,7 +8,7 @@ import com.machinarymgmt.service.api.data.model.Project;
 import com.machinarymgmt.service.dto.PettyCashTransactionDto;
 import com.machinarymgmt.service.dto.PettyCashTransactionListResponse;
 import com.machinarymgmt.service.dto.PettyCashTransactionResponse;
-
+import com.machinarymgmt.service.dto.PettyCashTransactionRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -27,16 +27,16 @@ public interface PettyCashTransactionMapper extends MachinaryMgmtMapper {
     
     List<PettyCashTransactionDto> toDtoList(List<PettyCashTransaction> transactions);
 
-    PettyCashTransaction toEntity(PettyCashTransactionDto dto);
+    PettyCashTransaction toEntity(PettyCashTransactionRequestDto dto);
 
     PettyCashTransactionListResponse toDtoList(BaseApiResponse baseApiResponse);
     
     PettyCashTransactionResponse toPettyCashTransactionResponse(BaseApiResponse baseApiResponse);
 
-    void updateEntityFromDto(PettyCashTransactionDto dto, @MappingTarget PettyCashTransaction transaction);
+    void updateEntityFromDto(PettyCashTransactionRequestDto dto, @MappingTarget PettyCashTransaction transaction);
     
     default PettyCashTransaction fromDtoWithReferences(
-            PettyCashTransactionDto dto,
+            PettyCashTransactionRequestDto dto,
             Project project,
             Equipment equipment,
             Item item) {

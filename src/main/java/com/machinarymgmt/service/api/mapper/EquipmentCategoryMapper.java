@@ -2,8 +2,8 @@ package com.machinarymgmt.service.api.mapper;
 
 import com.machinarymgmt.service.api.config.dto.BaseApiResponse;
 import com.machinarymgmt.service.api.data.model.EquipmentCategory;
-import  com.machinarymgmt.service.dto.EquipmentCategoryDto;
-
+import com.machinarymgmt.service.dto.EquipmentCategoryDto;
+import com.machinarymgmt.service.dto.EquipmentCategoryRequestDto;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.EquipmentCategoryListResponse;
 import com.machinarymgmt.service.dto.EquipmentCategoryResponse;
@@ -24,7 +24,7 @@ public interface EquipmentCategoryMapper extends MachinaryMgmtMapper {
     
     List<EquipmentCategoryDto> toDtoList(List<EquipmentCategory> categories);
 
-    EquipmentCategory toEntity(EquipmentCategoryDto dto);
+    EquipmentCategory toEntity(EquipmentCategoryRequestDto dto);
 
      MachinaryMgmtBaseApiResponse toBaseApiResponse(BaseApiResponse baseApiResponse);
 

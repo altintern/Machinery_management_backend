@@ -12,6 +12,71 @@ components:
       allOf:
         - $ref: '#/components/schemas/BaseApiResponse'
 
+  
+    # ************************ Summary Api Request ******************
+    CompanySummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+  
+ 
+    EquipmentSummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+ 
+    MaintenanceLogSummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+ 
+    CategorySummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+ 
+    MakeSummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+ 
+    ModelSummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+ 
+    ItemSummaryDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    
+
     # ************************ CompanyDTO Api Request ******************
     CompanyDto:
       type: object
@@ -184,24 +249,15 @@ components:
         id:
           type: integer
           format: int64
-        employeeId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-        startDate:
+        joiningDate:
           type: string
           format: date
-        endDate:
-          type: string
-          format: date
-        role:
-          type: string
         employee:
-          $ref: '#/components/schemas/EmployeeDto'
+          $ref: '#/components/schemas/EmployeeSummaryDto'
         project:
-          $ref: '#/components/schemas/ProjectDto'
+          $ref: '#/components/schemas/ProjectSummaryDto'
+        equipment:
+          $ref: '#/components/schemas/EquipmentSummaryDto'
 
 
     EmployeeAssignmentRequestDto:
@@ -213,14 +269,9 @@ components:
         projectId:
           type: integer
           format: int64
-        startDate:
+        joiningDate:
           type: string
           format: date
-        endDate:
-          type: string
-          format: date
-        role:
-          type: string
         equipmentId:
           type: integer
           format: int64
@@ -254,12 +305,10 @@ components:
           type: string
         remarks:
           type: string
-        departmentId:
-          type: integer
-          format: int64
-        designationId:
-          type: integer
-          format: int64
+        department:
+          $ref: '#/components/schemas/DepartmentDto'
+        designation:
+          $ref: '#/components/schemas/DesignationDto'
 
     EmployeeRequestDto:
       type: object
@@ -305,6 +354,14 @@ components:
         description:
           type: string
 
+    EquipmentCategoryRequestDto:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+
     EquipmentCategoryResponse:
       type: object
       properties:
@@ -332,26 +389,19 @@ components:
           format: int64
         name:
           type: string
-        categoryId:
-          type: integer
-          format: int64
-        makeId:
-          type: integer
-          format: int64
-        modelId:
-          type: integer
-          format: int64
         serialNumber:
           type: string
         purchaseDate:
           type: string
           format: date
         category:
-          $ref: '#/components/schemas/EquipmentCategoryDto'
+          $ref: '#/components/schemas/CategorySummaryDto'
         make:
-          $ref: '#/components/schemas/MakeDto'
+          $ref: '#/components/schemas/MakeSummaryDto'
         model:
-          $ref: '#/components/schemas/ModelDto'
+          $ref: '#/components/schemas/ModelSummaryDto'
+        project:
+          $ref: '#/components/schemas/ProjectSummaryDto'
 
 
     EquipmentRequestDto:
@@ -421,35 +471,42 @@ components:
         id:
           type: integer
           format: int64
-        equipmentId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        hoursUsed:
+        startingHoursKms:
           type: number
           format: double
-        fuelConsumed:
+        targetHoursKms:
           type: number
           format: double
-        operatorId:
+        closingHoursKms:
+          type: number
+          format: double
+        breakdownHoursKms:
+          type: number
+          format: double
+        availabilityHours:
+          type: number
+          format: double
+        dieselConsumedLtrs:
+          type: number
+          format: double
+        avgFuelConsumption:
+          type: number
+          format: double
+        utilizationPercentage:
+          type: number
+          format: double
+        month:
+          type: integer
+          format: int64
+        year:
           type: integer
           format: int64
         remarks:
           type: string
         equipment:
-          $ref: '#/components/schemas/EquipmentDto'
+          $ref: '#/components/schemas/EquipmentSummaryDto'
         project:
-          $ref: '#/components/schemas/ProjectDto'
-        operator:
-          $ref: '#/components/schemas/EmployeeDto'
+          $ref: '#/components/schemas/ProjectSummaryDto'
 
     EquipmentUtilizationRequestDto:
       type: object
@@ -460,29 +517,39 @@ components:
         projectId:
           type: integer
           format: int64
-        startDate:
-          type: string
-          format: date-time
-        endDate:
-          type: string
-          format: date-time
-        hoursUsed:
+        startingHoursKms:
           type: number
           format: double
-        fuelConsumed:
+        targetHoursKms:
           type: number
           format: double
-        operatorId:
+        closingHoursKms:
+          type: number
+          format: double
+        breakdownHoursKms:
+          type: number
+          format: double
+        availabilityHours:
+          type: number
+          format: double
+        dieselConsumedLtrs:
+          type: number
+          format: double
+        avgFuelConsumption:
+          type: number
+          format: double
+        utilizationPercentage:
+          type: number
+          format: double
+        month:
+          type: integer
+          format: int64
+        year:
           type: integer
           format: int64
         remarks:
           type: string
-        equipment:
-          $ref: '#/components/schemas/EquipmentDto'
-        project:
-          $ref: '#/components/schemas/ProjectDto'
-        operator:
-          $ref: '#/components/schemas/EmployeeDto'
+
 
     EquipmentUtilizationResponse:
       type: object
@@ -511,60 +578,74 @@ components:
           format: int64
         incidentDate:
           type: string
-          format: date-time
-        location:
+          format: date
+        closeDate:
           type: string
-        description:
+          format: date
+        estimatedCompletionDate:
           type: string
-        incidentTypeId:
-          type: integer
-          format: int64
-        equipmentId:
-          type: integer
-          format: int64
-        projectId:
-          type: integer
-          format: int64
-        reportedBy:
-          type: integer
-          format: int64
+          format: date
+        incidentType:
+          type: string
+          description: The type of the incident.
+          enum:
+            - TYPE1
+            - TYPE2
+            - TYPE3
         actionTaken:
+          type: string
+        incidentDetails:
           type: string
         status:
           type: string
-        incidentType:
-          type: string
+          description: The type of the incident.
+          enum:
+            - OPEN
+            - IN_PROGRESS
+            - CLOSED
+            - RESOLVED  
         equipment:
-          $ref: '#/components/schemas/EquipmentDto'
+          $ref: '#/components/schemas/EquipmentSummaryDto'
         project:
-          $ref: '#/components/schemas/ProjectDto'
+          $ref: '#/components/schemas/ProjectSummaryDto'
 
     IncidentReportRequestDto:
       type: object
       properties:
         incidentDate:
           type: string
-          format: date-time
-        location:
+          format: date
+        closeDate:
           type: string
-        description:
+          format: date
+        estimatedCompletionDate:
           type: string
-        incidentTypeId:
-          type: integer
-          format: int64
+          format: date
+        incidentType:
+          type: string
+          description: The type of the incident.
+          enum:
+            - TYPE1
+            - TYPE2
+            - TYPE3
         equipmentId:
           type: integer
           format: int64
         projectId:
           type: integer
           format: int64
-        reportedBy:
-          type: integer
-          format: int64
         actionTaken:
+          type: string
+        incidentDetails:
           type: string
         status:
           type: string
+          description: The type of the incident.
+          enum:
+            - OPEN
+            - IN_PROGRESS
+            - CLOSED
+            - RESOLVED
 
     IncidentReportResponse:
       type: object
@@ -626,31 +707,83 @@ components:
         id:
           type: integer
           format: int64
+        date:
+          type: string
+          format: date
+        serviceDate:
+          type: string
+          format: date
+        breakdownSynopsis:
+          type: string
+        feedback:
+          type: string
+        balanceForService:
+          type: integer
+          format: int64
+        closeReading:
+          type: integer
+          format: int64
+        serviceHours:
+          type: integer
+          format: int64
+        startReading:
+          type: integer
+          format: int64
+        maintenanceSignature:
+          type: string
+        operatorSignature:
+          type: string
+        maintenanceName:
+          type: string
+        purposeActivities:
+          type: string
+        remarks:
+          type: string
+        typeOfMaintenance:
+          type: string
+        equipment:
+          $ref: '#/components/schemas/EquipmentSummaryDto'
+
+    MaintenanceLogRequestDto:
+      type: object
+      properties:
         equipmentId:
           type: integer
           format: int64
-        maintenanceDate:
+        date:
           type: string
           format: date
-        maintenanceType:
+        serviceDate:
           type: string
-        description:
+          format: date
+        breakdownSynopsis:
           type: string
-        technicianId:
+        feedback:
+          type: string
+        balanceForService:
           type: integer
           format: int64
-        cost:
-          type: number
-          format: double
-        status:
+        closeReading:
+          type: integer
+          format: int64
+        serviceHours:
+          type: integer
+          format: int64
+        startReading:
+          type: integer
+          format: int64
+        maintenanceSignature:
           type: string
-        nextMaintenanceDate:
+        operatorSignature:
           type: string
-          format: date
-        equipment:
-          $ref: '#/components/schemas/EquipmentDto'
-        technician:
-          $ref: '#/components/schemas/EmployeeDto'
+        maintenanceName:
+          type: string
+        purposeActivities:
+          type: string
+        remarks:
+          type: string
+        typeOfMaintenance:
+          type: string
 
     MaintenanceLogResponse:
       type: object
@@ -671,30 +804,7 @@ components:
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
-    MaintenanceLogRequestDto:
-      type: object
-      properties:
-        equipmentId:
-          type: integer
-          format: int64
-        maintenanceDate:
-          type: string
-          format: date
-        maintenanceType:
-          type: string
-        description:
-          type: string
-        technicianId:
-          type: integer
-          format: int64
-        cost:
-          type: number
-          format: double
-        status:
-          type: string
-        nextMaintenanceDate:
-          type: string
-          format: date
+    
 
     MaintenanceLogRequestResponse:
       type: object
@@ -710,17 +820,13 @@ components:
         id:
           type: integer
           format: int64
-        maintenanceLogId:
-          type: integer
-          format: int64
-        itemId:
-          type: integer
-          format: int64
         quantity:
           type: number
           format: double
         item:
-          $ref: '#/components/schemas/ItemDto'
+          $ref: '#/components/schemas/ItemSummaryDto'
+        maintenancelog:
+          $ref: '#/components/schemas/MaintenanceLogSummaryDto'
 
     MaintenancePartUsedResponse:
       type: object
@@ -744,9 +850,6 @@ components:
     MaintenancePartUsedRequestDto:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
         maintenanceLogId:
           type: integer
           format: int64
@@ -771,14 +874,35 @@ components:
         id:
           type: integer
           format: int64
-        maintenanceLogId:
+        airPressure:
           type: integer
           format: int64
-        readingType:
-          type: string
-        readingValue:
-          type: number
-          format: double
+        engineOil:
+          type: integer
+          format: int64
+        engineTemperature:
+          type: integer
+          format: int64
+        gearOil:
+          type: integer
+          format: int64
+        gearUsed:
+          type: integer
+          format: int64
+        hsdUsed:
+          type: integer
+          format: int64
+        hydraulicOil:
+          type: integer
+          format: int64
+        hydraulicTemperature:
+          type: integer
+          format: int64
+        oilPressure:
+          type: integer
+          format: int64
+        maintenanceLog:
+          $ref: '#/components/schemas/MaintenanceLogSummaryDto'
 
     MaintenanceReadingResponse:
       type: object
@@ -787,6 +911,7 @@ components:
           $ref: '#/components/schemas/MaintenanceReadingDto'
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
+
 
     MaintenanceReadingListResponse:
       type: object
@@ -802,25 +927,37 @@ components:
     MaintenanceReadingRequestDto:
       type: object
       properties:
-        id:
-          type: integer
-          format: int64
         maintenanceLogId:
           type: integer
           format: int64
-        readingType:
-          type: string
-        readingValue:
-          type: number
-          format: double
+        airPressure:
+          type: integer
+          format: int64
+        engineOil:
+          type: integer
+          format: int64
+        engineTemperature:
+          type: integer
+          format: int64
+        gearOil:
+          type: integer
+          format: int64
+        gearUsed:
+          type: integer
+          format: int64
+        hsdUsed:
+          type: integer
+          format: int64
+        hydraulicOil:
+          type: integer
+          format: int64
+        hydraulicTemperature:
+          type: integer
+          format: int64
+        oilPressure:
+          type: integer
+          format: int64
 
-    MaintenanceReadingRequestResponse:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/MaintenanceReadingRequestDto'
-        baseResponse:
-          $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
     MakeDto:
       type: object
@@ -861,36 +998,47 @@ components:
         id:
           type: integer
           format: int64
-        projectId:
+        anchorageAtSite:
           type: integer
-          format: int64
-        mastNumber:
+          format: int32
+        anchorageFixedAtSite:
+          type: integer
+          format: int32
+        anchorageIdleAtSite:
+          type: integer
+          format: int32
+        mastAvailableAtSite:
+          type: integer
+          format: int32
+        mastFixedAtSite:
+          type: integer
+          format: int32
+        mastIdleAtSite:
+          type: integer
+          format: int32
+        totalAnchorageRequirement:
+          type: integer
+          format: int32
+        totalMastRequirement:
+          type: integer
+          format: int32
+        location:
           type: string
-        anchorageType:
+        presentBuildingHeight:
           type: string
-        depth:
-          type: number
-          format: double
-        width:
-          type: number
-          format: double
-        length:
-          type: number
-          format: double
-        concreteGrade:
+        presentHeightOfHoist:
           type: string
-        reinforcementDetails:
+        remarks:
           type: string
-        installationDate:
+        totalBuildingHeight:
           type: string
-          format: date
-        inspectionDate:
-          type: string
-          format: date
         status:
           type: string
         project:
-          $ref: '#/components/schemas/ProjectDto'
+          $ref: '#/components/schemas/ProjectSummaryDto'
+        equipment:
+          $ref: '#/components/schemas/EquipmentSummaryDto'
+      
 
 
     MastAnchorageDetailsRequestDto:
@@ -899,33 +1047,45 @@ components:
         projectId:
           type: integer
           format: int64
-        mastNumber:
+        equipmentId:
+          type: integer
+          format: int64
+        anchorageAtSite:
+          type: integer
+          format: int32
+        anchorageFixedAtSite:
+          type: integer
+          format: int32
+        anchorageIdleAtSite:
+          type: integer
+          format: int32
+        mastAvailableAtSite:
+          type: integer
+          format: int32
+        mastFixedAtSite:
+          type: integer
+          format: int32
+        mastIdleAtSite:
+          type: integer
+          format: int32
+        totalAnchorageRequirement:
+          type: integer
+          format: int32
+        totalMastRequirement:
+          type: integer
+          format: int32
+        location:
           type: string
-        anchorageType:
+        presentBuildingHeight:
           type: string
-        depth:
-          type: number
-          format: double
-        width:
-          type: number
-          format: double
-        length:
-          type: number
-          format: double
-        concreteGrade:
+        presentHeightOfHoist:
           type: string
-        reinforcementDetails:
+        remarks:
           type: string
-        installationDate:
+        totalBuildingHeight:
           type: string
-          format: date
-        inspectionDate:
-          type: string
-          format: date
         status:
           type: string
-        project:
-          $ref: '#/components/schemas/ProjectDto'
 
     MastAnchorageDetailsResponse:
       type: object
@@ -984,16 +1144,10 @@ components:
           id:
             type: integer
             format: int64
-          project:
-            $ref: '#/components/schemas/ProjectSummaryDto'
           issueDate:
             type: string
             format: date
             example: '2025-04-14'
-          equipment:
-            $ref: '#/components/schemas/EquipmentDto'
-          item:
-            $ref: '#/components/schemas/ItemDto'
           quantity:
             type: integer
             minimum: 1
@@ -1009,6 +1163,13 @@ components:
           remarks:
             type: string
             example: 'Used for foundation setup on site A'
+          project:
+            $ref: '#/components/schemas/ProjectSummaryDto'
+          equipment:
+            $ref: '#/components/schemas/EquipmentSummaryDto'
+          item:
+            $ref: '#/components/schemas/ItemSummaryDto'
+          
 
     MaterialsConsumptionTransactionResponse:
       type: object
@@ -1037,9 +1198,10 @@ components:
           format: int64
         name:
           type: string
-        makeId:
-          type: integer
-          format: int64
+        description:
+          type: string
+        make:
+          $ref: '#/components/schemas/MakeSummaryDto'
 
     ModelRequestDto:
       type: object
@@ -1051,8 +1213,7 @@ components:
           format: int64
         description:
           type: string
-        make:
-          $ref: '#/components/schemas/MakeDto'
+        
 
     ModelResponse:
       type: object
@@ -1088,8 +1249,9 @@ components:
           type: string
           format: date
           description: The date of the report.
-        employee:
-          $ref: '#/components/schemas/EmployeeSummaryDto'
+        employeeId:
+          type: integer
+          format: int64
         presentDays:
           type: integer
           format: int32
@@ -1154,35 +1316,58 @@ components:
         id:
           type: integer
           format: int64
+        reportDate:
+          type: string
+          format: date
+        remarks:
+          type: string
+        amountSpent:
+          type: number
+          format: double
+        quantity:
+          type: number
+          format: double
+        cumulativeAmountSpent:
+          type: number
+          format: double
+        purposeJustification:
+          type: string
+        project:
+          $ref: '#/components/schemas/ProjectSummaryDto'
+        equipment:
+          $ref: '#/components/schemas/EquipmentSummaryDto'
+        item:
+          $ref: '#/components/schemas/ItemSummaryDto'
+
+    PettyCashTransactionRequestDto:
+      type: object
+      properties:
         projectId:
           type: integer
           format: int64
-        transactionDate:
+        equipmentId:
+          type: integer
+          format: int64
+        itemId:
+          type: integer
+          format: int64
+        reportDate:
           type: string
           format: date
-        description:
+        remarks:
           type: string
-        amount:
+        amountSpent:
           type: number
           format: double
-        transactionType:
+        quantity:
+          type: number
+          format: double
+        cumulativeAmountSpent:
+          type: number
+          format: double
+        purposeJustification:
           type: string
-        referenceNumber:
-          type: string
-        status:
-          type: string
-        submittedBy:
-          type: integer
-          format: int64
-        approvedBy:
-          type: integer
-          format: int64
-        project:
-          $ref: '#/components/schemas/ProjectDto'
-        submitter:
-          $ref: '#/components/schemas/EmployeeDto'
-        approver:
-          $ref: '#/components/schemas/EmployeeDto'
+
 
     PettyCashTransactionResponse:
       type: object
@@ -1277,26 +1462,11 @@ components:
         baseResponse:
           $ref: '#/components/schemas/MachinaryMgmtBaseApiResponse'
 
-    
+   
 
     StockStatementDto:
       type: object
       properties:
-        itemId:
-          type: integer
-          format: int64
-        itemName:
-          type: string
-        projectId:
-          type: integer
-          format: int64
-        ProjectName:
-          type: string
-        equipmentId:
-          type: integer
-          format: int64
-        equipmentName:
-          type: string
         lastIssueOn:
           type: string
           format: date
@@ -1316,6 +1486,15 @@ components:
         landedRate:
           type: number
           format: double
+        project:
+          $ref: '#/components/schemas/ProjectSummaryDto'
+        equipment:
+          $ref: '#/components/schemas/EquipmentSummaryDto'
+        item:
+          $ref: '#/components/schemas/ItemSummaryDto'
+
+
+ 
         
 
     StockStatementRequestDto:

@@ -13,6 +13,8 @@ import com.machinarymgmt.service.dto.IncidentReportResponse;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -133,6 +135,16 @@ public class IncidentApiController implements IncidentsApi {
       IncidentReportListResponse incidentReportListResponse = incidentReportMapper.toDtoList(responseBuilder.buildSuccessApiResponse("All Incident Reports are retrieved successfully"));
       incidentReportListResponse.setData(incidentReportDto);
       return ResponseEntity.ok(incidentReportListResponse);
+   }
+
+   @Override
+   public ResponseEntity<MachinaryMgmtBaseApiResponse> createIncident(
+         @Valid IncidentReportRequestDto incidentReportRequestDto) throws Exception {
+      // TODO Auto-generated method stub
+      IncidentReport incidentReport = incidentReportMapper.toEntity(incidentReportRequestDto);
+      incidentReportService.save(incidentReport);
+      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse = incidentReportMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Incident report created successfully"));
+      return new ResponseEntity<>(machinaryMgmtBaseApiResponse,HttpStatus.CREATED);
    }
 
  

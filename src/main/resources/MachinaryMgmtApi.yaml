@@ -75,17 +75,6 @@ paths:
       operationId: getAllEquipment
       tags:
         - Equipments
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -181,17 +170,6 @@ paths:
       operationId: getAllEquipmentUtilization
       tags:
         - Equipments Utilization
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -290,17 +268,6 @@ paths:
       operationId: getAllMaintenanceLogs
       tags:
         - Maintenance
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -395,17 +362,6 @@ paths:
       operationId: getAllMaintenanceReading
       tags:
         - Maintenance Reading
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -431,7 +387,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingRequestResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingResponse'
 
   /maintenance/reading/{id}:
     get:
@@ -470,14 +426,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingRequestDto'
       responses:
         '200':
           description: Maintenance reading updated successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenanceReadingResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
 
 
     delete:
@@ -507,17 +463,6 @@ paths:
       operationId: getAllMaintenancePartused
       tags:
         - Maintenance PartUsed
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -536,7 +481,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedRequestDto'
       responses:
         '200':
           description: Maintenance Partused created successfully
@@ -583,7 +528,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MaintenancePartUsedRequestDto'
       responses:
         '200':
           description: Maintenance Part used updated successfully
@@ -731,7 +676,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/EquipmentCategoryRequestDto'
       responses:
         '200':
           description: Category created successfully
@@ -989,26 +934,7 @@ paths:
             application/json:
               schema:
                 $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
-  /models/make/{makeId}:
-    get:
-      summary: Get models by make ID
-      operationId: getModelsByMakeId
-      tags:
-        - Models
-      parameters:
-        - name: makeId
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/ModelListResponse'
+  
   /items:
     get:
       summary: Get all items
@@ -1135,14 +1061,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportRequestDto'
       responses:
         '200':
           description: Incident report created successfully
           content:
             application/json:
               schema:
-                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/IncidentReportResponse'
+                $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/MachinaryMgmtBaseApiResponse'
   /incidents/{id}:
     get:
       summary: Get incident report by ID
@@ -1213,17 +1139,6 @@ paths:
       operationId: getAllEmployees
       tags:
         - Employees
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -1325,17 +1240,6 @@ paths:
       operationId: getAllEmployeesAssignments
       tags:
         - Employees Assignment
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-            default: 0
-        - name: size
-          in: query
-          schema:
-            type: integer
-            default: 10
       responses:
         '200':
           description: Successful operation
@@ -1852,7 +1756,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionRequestDto'
       responses:
         '200':
           description: Petty Cash Transaction created successfully
@@ -1900,7 +1804,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionDto'
+              $ref: './MachinaryMgmtApiComponents.yaml#/components/schemas/PettyCashTransactionRequestDto'
       responses:
         '200':
           description: Petty Cash Transation updated successfully

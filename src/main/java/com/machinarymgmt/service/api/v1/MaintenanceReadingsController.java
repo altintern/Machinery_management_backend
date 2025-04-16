@@ -9,6 +9,7 @@ import com.machinarymgmt.service.api.data.model.Employee;
 import com.machinarymgmt.service.api.data.model.Equipment;
 import com.machinarymgmt.service.api.data.model.EquipmentUtilization;
 import com.machinarymgmt.service.api.data.model.MachineryMaintenanceLog;
+import com.machinarymgmt.service.api.data.model.MaintenanceReading;
 import com.machinarymgmt.service.api.service.EquipmentService;
 import com.machinarymgmt.service.api.service.MachineryMaintenanceLogService;
 import com.machinarymgmt.service.api.service.MaintenanceReadingService;
@@ -22,9 +23,12 @@ import com.machinarymgmt.service.dto.EquipmentUtilizationResponse;
 import com.machinarymgmt.service.dto.MachinaryMgmtBaseApiResponse;
 import com.machinarymgmt.service.dto.MaintenanceLogDto;
 import com.machinarymgmt.service.dto.MaintenanceLogListResponse;
-import com.machinarymgmt.service.dto.MaintenanceLogRequestDto;
+import com.machinarymgmt.service.dto.MaintenanceReadingRequestDto;
+import com.machinarymgmt.service.dto.MaintenanceReadingResponse;
 import com.machinarymgmt.service.dto.MaintenanceLogResponse;
+import com.machinarymgmt.service.dto.MaintenanceReadingDto;
 import com.machinarymgmt.service.dto.MaintenanceReadingListResponse;
+import com.machinarymgmt.service.dto.MaintenanceReadingResponse;
 import com.machinarymgmt.service.api.mapper.MaintenanceLogMapper;
 import com.machinarymgmt.service.api.mapper.MaintenanceReadingMapper;
 
@@ -36,7 +40,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -53,60 +57,51 @@ public class MaintenanceReadingsController implements MaintenanceReadingApi{
    private final MaintenanceReadingMapper maintenanceReadingMapper;
    private final EquipmentService equipmentService;
    private final ApiResponseBuilder responseBuilder;
-   // @Override
-   // public ResponseEntity<MaintenanceReadingListResponse> getAllMaintenanceReading(@Valid Integer page,
-   //       @Valid Integer size) throws Exception {
-   //    // TODO Auto-generated method stub
-   //    return MaintenanceReadingApi.super.getAllMaintenanceReading(page, size);
-   // }
-
+   @Override
+   public ResponseEntity<MaintenanceReadingListResponse> getAllMaintenanceReading() throws Exception {
+      // TODO Auto-generated method stub
+      List<MaintenanceReadingDto> maintenanceReadingDtosList= maintenanceReadingMapper.toDtoList(maintenanceReadingService.findAll());
+      MaintenanceReadingListResponse maintenanceReadingListResponse= maintenanceReadingMapper.toMaintenancereadingListResponse(responseBuilder.buildSuccessApiResponse("Maintenance Reading build successfully"));
+      maintenanceReadingListResponse.setData(maintenanceReadingDtosList);
+      return ResponseEntity.ok(maintenanceReadingListResponse);
+   }
+   @Override
+   public ResponseEntity<MaintenanceReadingResponse> getMaintenanceReadingById(Long id) throws Exception {
+      // TODO Auto-generated method stub
+      MaintenanceReadingDto maintenanceReadingDto =maintenanceReadingMapper.toDto(maintenanceReadingService.findById(id).orElseThrow(() -> new Exception("Maintenance Readings not found")));
+      MaintenanceReadingResponse maintenanceReadingResponse= maintenanceReadingMapper.toMaintenanceReadingResponse(responseBuilder.buildSuccessApiResponse("Maintenance Reading build by ID successfully"));
+      maintenanceReadingResponse.setData(maintenanceReadingDto);
+      return ResponseEntity.ok(maintenanceReadingResponse);
+   }
    
-   // @Override
-   // public ResponseEntity<MaintenanceLogListResponse> getAllMaintenanceLogs(@Valid Integer page, @Valid Integer size)
-   //      throws Exception {
-   //  // TODO Auto-generated method stub
-   //  List<MaintenanceLogDto> maintenanceLogDtosList=  maintenanceLogMapper.toDtoList(maintenanceLogService.findAll());
-   //  MaintenanceLogListResponse maintenanceLogListResponse= maintenanceLogMapper.toMaintenanceLogListResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log build successfully"));
-   //  maintenanceLogListResponse.data(maintenanceLogDtosList);
-   //  return ResponseEntity.ok(maintenanceLogListResponse);
-   // }
-   // @Override
-   // public ResponseEntity<MaintenanceLogResponse> getMaintenanceLogById(Long id) throws Exception {
-   //  // TODO Auto-generated method stub
-   //  MaintenanceLogDto maintenanceLogDto= maintenanceLogMapper.toDto(maintenanceLogService.findById(id).orElseThrow(() -> new Exception("Maintenance Log not found")));
-   //  MaintenanceLogResponse maintenanceLogResponse= maintenanceLogMapper.toMaintenanceLogResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log build by ID successfull"));
-   //  maintenanceLogResponse.setData(maintenanceLogDto);
-   //  return ResponseEntity.ok(maintenanceLogResponse);
-   // }
-   // @Override
-   // public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMaintenanceLog(Long id) throws Exception {
-   //    // TODO Auto-generated method stub
-   //    maintenanceLogService.deleteById(id);
-   //    MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceLogMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance log deleted successfully"));
-   //    return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
-   // }
+   @Override
+   public ResponseEntity<MachinaryMgmtBaseApiResponse> deleteMaintenanceReading(Long id) throws Exception {
+      // TODO Auto-generated method stub
+      maintenanceReadingService.deleteById(id);
+      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceReadingMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance Readings deleted successfully"));
+      return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+   }
+   @Override
+   public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMaintenanceReading(Long id,
+         @Valid MaintenanceReadingRequestDto maintenanceReadingRequestDto) throws Exception {
+      // TODO Auto-generated method stub
+      MaintenanceReading existinMaintenanceReading = maintenanceReadingService.findById(id).orElseThrow(() -> new Exception("Machinery Maintenance Reading not found"));
+      maintenanceReadingMapper.updateEntityFromDto(maintenanceReadingRequestDto, existinMaintenanceReading);
+      MaintenanceReading updatMaintenanceReading= maintenanceReadingService.save(existinMaintenanceReading);
+      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceReadingMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance readings updated successfully"));
+      return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
+   }
+   @Override
+   public ResponseEntity<MaintenanceReadingResponse> createMaintenanceReadings(
+         @Valid MaintenanceReadingRequestDto maintenanceReadingRequestDto) throws Exception {
+      // TODO Auto-generated method stub
+      MaintenanceReading maintenanceReading = maintenanceReadingMapper.toEntity(maintenanceReadingRequestDto);
+      MaintenanceReading maintenanceReadingsaved= maintenanceReadingService.save(maintenanceReading);
+      MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceReadingMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Maintenance Reading created successfully"));
+      MaintenanceReadingResponse maintenanceReadingResponse= maintenanceReadingMapper.toMaintenanceReadingResponse(responseBuilder.buildSuccessApiResponse("Maintenance Reading created successfully"));
+      return new ResponseEntity<>(maintenanceReadingResponse, HttpStatus.CREATED);
+   }
 
-   // @Override
-   // public ResponseEntity<MachinaryMgmtBaseApiResponse> updateMaintenanceLog(Long id,
-   //       @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
-   //    // TODO Auto-generated method stub
-   //    MachineryMaintenanceLog existingMachineryMaintenanceLog= maintenanceLogService.findById(id).orElseThrow(() -> new Exception("Machinery Maintenance not found"));
-   //    maintenanceLogMapper.updateEntityFromDto(maintenanceLogRequestDto, existingMachineryMaintenanceLog);
-   //    MachineryMaintenanceLog updatedMachineryMaintenanceLog= maintenanceLogService.save(existingMachineryMaintenanceLog);
-   //    MachinaryMgmtBaseApiResponse machinaryMgmtBaseApiResponse= maintenanceLogMapper.toBaseApiResponse(responseBuilder.buildSuccessApiResponse("Machinery maintenance updated successfully"));
-   //    return ResponseEntity.ok(machinaryMgmtBaseApiResponse);
-   // }
-
-
-   // @Override
-   // public ResponseEntity<MaintenanceLogResponse> createMaintenanceLog(
-   //      @Valid MaintenanceLogRequestDto maintenanceLogRequestDto) throws Exception {
-   //  // TODO Auto-generated method stub
-   //  MachineryMaintenanceLog machineryMaintenanceLog= maintenanceLogMapper.toEntity(maintenanceLogRequestDto);
-   //  MachineryMaintenanceLog machineryMaintenanceLogsaved= maintenanceLogService.save(machineryMaintenanceLog);
-   //  MaintenanceLogResponse maintenanceLogResponse= maintenanceLogMapper.toMaintenanceLogResponse(responseBuilder.buildSuccessApiResponse("Maintenance Log Created successfully"));
-   //  return new ResponseEntity<>(maintenanceLogResponse, HttpStatus.CREATED);
-   // }
  
 
 //    @GetMapping
