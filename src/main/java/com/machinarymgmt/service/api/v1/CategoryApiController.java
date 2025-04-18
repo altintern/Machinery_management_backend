@@ -21,11 +21,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-import static com.machinarymgmt.service.api.utils.Constants.CATEGORY_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(CATEGORY_URL)
+@RequestMapping(BASE_URL)
 public class CategoryApiController implements CategoriesApi{
 
    private final EquipmentCategoryService categoryService;
