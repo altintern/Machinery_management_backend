@@ -389,11 +389,10 @@ components:
           format: int64
         name:
           type: string
-        serialNumber:
+        assetCode:
           type: string
-        purchaseDate:
-          type: string
-          format: date
+        yearOfManufacture:
+          type: integer
         category:
           $ref: '#/components/schemas/CategorySummaryDto'
         make:
