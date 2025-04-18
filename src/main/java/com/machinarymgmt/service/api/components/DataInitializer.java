@@ -669,24 +669,24 @@ public class DataInitializer implements CommandLineRunner {
         stockStatementRepository.saveAll(Arrays.asList(statement1, statement2));
     }
     
-    private void initializeUsers() {
-        log.info("Initializing Users...");
-        User user1 = User.builder()
-                .username("admin")
-                .password("$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG") // password: password
-                .email("admin@example.com")
-                .role("ADMIN")
-                .active(true)
-                .build();
+    // private void initializeUsers() {
+    //     log.info("Initializing Users...");
+    //     User user1 = User.builder()
+    //             .username("admin")
+    //             .password("$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG") // password: password
+    //             .email("admin@example.com")
+    //             .role("ADMIN")
+    //             .active(true)
+    //             .build();
         
-        User user2 = User.builder()
-                .username("user")
-                .password("$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG") // password: password
-                .email("user@example.com")
-                .role("USER")
-                .active(true)
-                .build();
+    //     User user2 = User.builder()
+    //             .username("user")
+    //             .password("$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG") // password: password
+    //             .email("user@example.com")
+    //             .role("USER")
+    //             .active(true)
+    //             .build();
         
-        userRepository.saveAll(Arrays.asList(user1, user2));
-    }
+    //     userRepository.saveAll(Arrays.asList(user1, user2));
+    // }
 }
