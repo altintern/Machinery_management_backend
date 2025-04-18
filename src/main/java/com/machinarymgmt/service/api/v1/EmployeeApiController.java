@@ -44,7 +44,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/employees")
+@RequestMapping(BASE_URL )
 public class EmployeeApiController implements EmployeesApi {
 
     private final EmployeeService employeeService;

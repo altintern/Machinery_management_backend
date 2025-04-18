@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface DesignationRepository extends JpaRepository<Designation, Long> {
-    Optional<Designation> findByName(String name);
+    Designation findByName(String name);
     boolean existsByName(String name);
 }
 

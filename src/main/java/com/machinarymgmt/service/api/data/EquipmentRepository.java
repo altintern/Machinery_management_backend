@@ -18,7 +18,10 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Long> {
     List<Equipment> findByCategory(EquipmentCategory category);
     List<Equipment> findByModel(Model model);
     Page<Equipment> findByNameContaining(String name, Pageable pageable);
-    Optional<Equipment> findByAssetCode(String assetCode);
+    Equipment findByAssetCode(String assetCode);
     boolean existsByAssetCode(String assetCode);
+    Optional<Equipment> findByName(String name);
+    boolean existsByName(String name);
+
 }
 

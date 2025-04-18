@@ -25,11 +25,11 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-import static com.machinarymgmt.service.api.utils.Constants.MODEL_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(MODEL_URL)
+@RequestMapping(BASE_URL)
 public class ModelApiController implements ModelsApi {
 
    private final ModelService modelService;

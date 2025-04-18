@@ -15,5 +15,6 @@ public interface MachineryMaintenanceLogRepository extends JpaRepository<Machine
     List<MachineryMaintenanceLog> findByEquipment(Equipment equipment);
     List<MachineryMaintenanceLog> findByDateBetween(LocalDate startDate, LocalDate endDate);
     Page<MachineryMaintenanceLog> findByEquipmentAndDateBetween(Equipment equipment, LocalDate startDate, LocalDate endDate, Pageable pageable);
+    boolean existsByEquipmentAndDate(Equipment equipment, LocalDate date);
 }
 

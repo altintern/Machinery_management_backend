@@ -37,7 +37,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/mast-anchorage-details")
+@RequestMapping(BASE_URL )
 public class MastAnchorageDetailsApiController implements MastAnchorageApi {
 
    private final MastAnchorageDetailsService detailsService;

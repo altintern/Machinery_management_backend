@@ -41,7 +41,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/equipment-utilizations")
+@RequestMapping(BASE_URL)
 public class EquipmentUtilizationApiController implements EquipmentsUtilizationApi{
 
    private final EquipmentUtilizationService utilizationService;

@@ -44,7 +44,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/employee-assignments")
+@RequestMapping(BASE_URL)
 public class EmployeeAssignmentApiController implements EmployeesAssignmentApi{
 
    private final EmployeeAssignmentService assignmentService;

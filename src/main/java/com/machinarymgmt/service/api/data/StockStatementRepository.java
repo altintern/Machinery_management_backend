@@ -15,5 +15,6 @@ public interface StockStatementRepository extends JpaRepository<StockStatement, 
     List<StockStatement> findByItem(Item item);
     List<StockStatement> findByEquipment(Equipment equipment);
     List<StockStatement> findByMonthAndYear(Integer month, Integer year);
+    boolean existsByProjectAndItemAndEquipment(Project project, Item item, Equipment equipment);
 }
 

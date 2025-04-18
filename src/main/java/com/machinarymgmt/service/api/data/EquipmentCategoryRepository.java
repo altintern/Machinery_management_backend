@@ -8,7 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface EquipmentCategoryRepository extends JpaRepository<EquipmentCategory, Long> {
-    Optional<EquipmentCategory> findByName(String name);
+    EquipmentCategory findByName(String name);
     boolean existsByName(String name);
+    
 }
 

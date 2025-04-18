@@ -42,7 +42,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/stock-statements")
+@RequestMapping(BASE_URL)
 public class StockStatementApiController implements StockStatementApi{
 
    private final StockStatementService stockStatementService;

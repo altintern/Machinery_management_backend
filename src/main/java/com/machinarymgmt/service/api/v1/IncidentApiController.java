@@ -27,7 +27,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/incidents")
+@RequestMapping(BASE_URL )
 public class IncidentApiController implements IncidentsApi {
    private final IncidentReportService incidentReportService;
    private final EquipmentService equipmentService;

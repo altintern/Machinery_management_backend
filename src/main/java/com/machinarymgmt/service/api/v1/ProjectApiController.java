@@ -33,11 +33,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.machinarymgmt.service.api.utils.Constants.PROJECTAPI_URL;
-import static com.machinarymgmt.service.api.utils.Constants.PROJECT_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(PROJECTAPI_URL)
+@RequestMapping(BASE_URL)
 public class ProjectApiController implements ProjectsApi {
 
    private final ProjectService projectService;

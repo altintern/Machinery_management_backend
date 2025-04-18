@@ -37,7 +37,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/petty-cash-transactions")
+@RequestMapping(BASE_URL )
 public class PettyCashTransactionApiController implements PettyCashApi {
 
    private final PettyCashTransactionService transactionService;

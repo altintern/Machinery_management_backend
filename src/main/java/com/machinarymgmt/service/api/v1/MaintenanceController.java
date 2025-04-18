@@ -36,11 +36,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static com.machinarymgmt.service.api.utils.Constants.MAINTENANCE_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(MAINTENANCE_URL)
+@RequestMapping(BASE_URL)
 public class MaintenanceController implements MaintenanceApi {
 
    private final MachineryMaintenanceLogService maintenanceLogService;

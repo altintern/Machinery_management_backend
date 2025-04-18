@@ -16,5 +16,7 @@ public interface IncidentReportRepository extends JpaRepository<IncidentReport, 
     List<IncidentReport> findByEquipment(Equipment equipment);
     List<IncidentReport> findByProject(Project project);
     Page<IncidentReport> findByIncidentDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable);
+    boolean existsByEquipmentAndProjectAndIncidentDate(Equipment equipment, Project project, LocalDate incidentDate);
+
 }
 

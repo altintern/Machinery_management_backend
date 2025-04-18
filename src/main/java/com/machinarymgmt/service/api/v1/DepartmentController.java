@@ -38,7 +38,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/departments")
+@RequestMapping(BASE_URL )
 public class DepartmentController implements DepartmentsApi{
 
    private final DepartmentService departmentService;

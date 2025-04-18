@@ -13,5 +13,6 @@ public interface MastAnchorageDetailsRepository extends JpaRepository<MastAnchor
     List<MastAnchorageDetails> findByProject(Project project);
     List<MastAnchorageDetails> findByEquipment(Equipment equipment);
     List<MastAnchorageDetails> findByStatus(String status);
+    boolean existsByProjectAndEquipment(Project project, Equipment equipment);
 }
 

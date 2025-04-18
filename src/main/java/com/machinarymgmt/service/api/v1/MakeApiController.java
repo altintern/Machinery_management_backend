@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
-import static com.machinarymgmt.service.api.utils.Constants.MAKE_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(MAKE_URL)
+@RequestMapping(BASE_URL)
 public class MakeApiController implements MakesApi{
 
     private final MakeService makeService;

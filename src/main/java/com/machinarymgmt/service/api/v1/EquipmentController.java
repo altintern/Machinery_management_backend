@@ -38,13 +38,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.machinarymgmt.service.api.utils.Constants.EQUIPMENT_URL;
+import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 import java.util.List;
 import java.util.Locale.Category;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(EQUIPMENT_URL)
+@RequestMapping(BASE_URL)
 public class EquipmentController implements EquipmentsApi{
 
    

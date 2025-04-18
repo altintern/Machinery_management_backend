@@ -11,9 +11,10 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Optional<Item> findByCode(String code);
+    Item findByCode(String code);
     List<Item> findByType(Item.ItemType type);
     Page<Item> findByDescriptionContaining(String description, Pageable pageable);
     boolean existsByCode(String code);
+    //Item findByName(String code);
 }
 

@@ -11,7 +11,10 @@ import java.util.Optional;
 @Repository
 public interface ModelRepository extends JpaRepository<Model, Long> {
     List<Model> findByMake(Make make);
-    Optional<Model> findByNameAndMake(String name, Make make);
+    Model findByNameAndMake(String name, Make make);
     boolean existsByNameAndMake(String name, Make make);
+    Model findByName(String name);
+    boolean existsByName(String name);
+
 }
 

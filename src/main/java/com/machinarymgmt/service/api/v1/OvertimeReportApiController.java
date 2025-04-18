@@ -49,7 +49,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/overtime-reports")
+@RequestMapping(BASE_URL)
 public class OvertimeReportApiController implements OvertimeReportApi {
    private final OvertimeReportService overtimeReportService;
    private final EmployeeService employeeService;

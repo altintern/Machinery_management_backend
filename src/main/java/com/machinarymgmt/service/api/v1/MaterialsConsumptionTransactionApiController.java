@@ -32,7 +32,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/materials-consumption")
+@RequestMapping(BASE_URL)
 public class MaterialsConsumptionTransactionApiController implements MaterialsConsumptionApi {
 
     private final MaterialsConsumptionTransactionService transactionService;

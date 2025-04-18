@@ -31,7 +31,7 @@ import static com.machinarymgmt.service.api.utils.Constants.BASE_URL;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(BASE_URL + "/designations")
+@RequestMapping(BASE_URL )
 public class DesignationApiController implements DesignationsApi{
 
    private final DesignationService designationService;
